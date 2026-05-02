@@ -1,0 +1,104 @@
+<mvc:View
+    controllerName="z00196ss26.vehicle.rental.controller.VehicleList"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Page id="vehicleListPage"
+          title="{i18n>manageVehicles}"
+          showNavButton="true"
+          navButtonPress=".onNavBack">
+
+        <content>
+            <IconTabBar id="vehicleIconTabBar"
+                        select=".onFilterVehicle"
+                        selectedKey="ALL"
+                        class="sapUiNoContentPadding"
+                        stretchContentHeight="false"
+                        applyContentPadding="false">
+                <items>
+                    <IconTabFilter key="ALL"   text="{i18n>filterAll}"       count="{vehicleView>/allCount}"       showAll="true"/>
+                    <IconTabSeparator/>
+                    <IconTabFilter key="true"  text="{i18n>filterAvailable}" count="{vehicleView>/availableCount}" iconColor="Positive" icon="sap-icon://accept"/>
+                    <IconTabFilter key="false" text="{i18n>filterRented}"    count="{vehicleView>/rentedCount}"    iconColor="Negative" icon="sap-icon://decline"/>
+                </items>
+                <content>
+                    <Table
+                        id="vehicleTable"
+                        items="{/Vehicle}"
+                        growing="true"
+                        growingThreshold="20"
+                        alternateRowColors="true"
+                        sticky="ColumnHeaders,HeaderToolbar"
+                        noDataText="{i18n>noVehicles}"
+                        updateFinished=".onTableUpdate">
+                        <headerToolbar>
+                            <OverflowToolbar>
+                                <SearchField id="vehicleSearch"
+                                    placeholder="{i18n>searchVehicles}"
+                                    liveChange=".onSearchVehicle"
+                                    width="300px"/>
+                                <ToolbarSpacer/>
+                                <Button text="{i18n>addVehicle}" icon="sap-icon://add" press=".onAddVehicle" type="Emphasized"/>
+                                <Button icon="sap-icon://refresh" tooltip="{i18n>refresh}" press=".onRefresh" type="Transparent"/>
+                            </OverflowToolbar>
+                        </headerToolbar>
+                        <columns>
+                            <Column width="6rem"><Text text="{i18n>vehicleId}"/></Column>
+                            <Column><Text text="{i18n>vehicleInfo}"/></Column>
+                            <Column><Text text="{i18n>category}"/></Column>
+                            <Column><Text text="{i18n>specs}"/></Column>
+                            <Column hAlign="Right"><Text text="{i18n>dailyRate}"/></Column>
+                            <Column hAlign="Right"><Text text="{i18n>mileage}"/></Column>
+                            <Column hAlign="Center"><Text text="{i18n>availability}"/></Column>
+                            <Column width="12rem" hAlign="Center"><Text text="{i18n>actions}"/></Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem vAlign="Middle">
+                                <cells>
+                                    <ObjectIdentifier title="{VehicleId}"/>
+                                    <ObjectIdentifier title="{Brand}" text="{Model}"/>
+                                    <ObjectStatus text="{Category}" inverted="true"
+                                        state="{
+                                            path: 'Category',
+                                            formatter: '.formatter.categoryState'
+                                        }"/>
+                                    <Label text="{
+                                        parts: ['FuelType', 'Transmission'],
+                                        formatter: '.formatter.specsText'
+                                    }"/>
+                                    <ObjectNumber number="{DailyRate}" unit="{CurrencyCode}" emphasized="true"/>
+                                    <ObjectNumber number="{Mileage}" unit="km"/>
+                                    <ObjectStatus
+                                        text="{
+                                            path: 'Availability',
+                                            formatter: '.formatter.availabilityText'
+                                        }"
+                                        state="{
+                                            path: 'Availability',
+                                            formatter: '.formatter.availabilityState'
+                                        }"
+                                        icon="{
+                                            path: 'Availability',
+                                            formatter: '.formatter.availabilityIcon'
+                                        }"
+                                        inverted="true"/>
+                                    <HBox justifyContent="Center">
+                                        <Button
+                                            text="{i18n>bookNow}"
+                                            icon="sap-icon://add-document"
+                                            press=".onBookVehicle"
+                                            type="Emphasized"
+                                            visible="{= ${Availability} === true}"/>
+                                        <Button icon="sap-icon://edit"   tooltip="{i18n>edit}"   press=".onEditVehicle"   type="Transparent"/>
+                                        <Button icon="sap-icon://delete" tooltip="{i18n>delete}" press=".onDeleteVehicle" type="Transparent"/>
+                                    </HBox>
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </content>
+            </IconTabBar>
+        </content>
+    </Page>
+</mvc:View>

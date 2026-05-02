@@ -5,6 +5,14 @@
 
     <Dialog id="rentalDialog" title="{dialog>/title}" contentWidth="480px" draggable="true" resizable="true">
         <content>
+            <MessageStrip
+                text="{dialog>/vehicleInfo}"
+                type="Information"
+                showIcon="true"
+                showCloseButton="false"
+                visible="{= !!${dialog>/vehicleInfo}}"
+                class="sapUiSmallMargin"/>
+
             <f:SimpleForm editable="true" layout="ResponsiveGridLayout"
                 labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
                 columnsXL="1" columnsL="1" columnsM="1"
@@ -14,19 +22,19 @@
                     <Input value="{dialog>/RentalId}" enabled="{dialog>/isNew}" maxLength="8" placeholder="e.g. 00000001"/>
 
                     <Label text="{i18n>vehicleId}" required="true"/>
-                    <Input value="{dialog>/VehicleId}" enabled="{dialog>/isNew}" maxLength="8" placeholder="e.g. 00000001"/>
+                    <Input value="{dialog>/VehicleId}" enabled="{dialog>/vehicleIdEnabled}" maxLength="8" placeholder="e.g. 00000001"/>
 
                     <Label text="{i18n>customerName}" required="true"/>
-                    <Input value="{dialog>/CustomerName}" maxLength="50"/>
+                    <Input value="{dialog>/CustomerName}" maxLength="50" placeholder="{i18n>customerNamePlaceholder}"/>
 
                     <Label text="{i18n>pickupDate}" required="true"/>
-                    <DatePicker value="{dialog>/PickupDate}" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy"/>
+                    <DatePicker value="{dialog>/PickupDate}" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" placeholder="dd.MM.yyyy"/>
 
                     <Label text="{i18n>returnDate}" required="true"/>
-                    <DatePicker value="{dialog>/ReturnDate}" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy"/>
+                    <DatePicker value="{dialog>/ReturnDate}" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" placeholder="dd.MM.yyyy"/>
 
                     <Label text="{i18n>specialRequests}"/>
-                    <TextArea value="{dialog>/SpecialRequests}" rows="3" maxLength="200" growing="true"/>
+                    <TextArea value="{dialog>/SpecialRequests}" rows="3" maxLength="200" growing="true" placeholder="{i18n>specialRequestsPlaceholder}"/>
                 </f:content>
             </f:SimpleForm>
         </content>

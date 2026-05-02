@@ -5,7 +5,7 @@
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
-      "version": "0.0.1"
+      "version": "1.0.0"
     },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
@@ -29,12 +29,7 @@
   "sap.ui": {
     "technology": "UI5",
     "icons": {
-      "icon": "",
-      "favIcon": "",
-      "phone": "",
-      "phone@2": "",
-      "tablet": "",
-      "tablet@2": ""
+      "icon": "sap-icon://car-rental"
     },
     "deviceTypes": {
       "desktop": true,
@@ -50,7 +45,8 @@
         "sap.m": {},
         "sap.ui.core": {},
         "sap.ui.layout": {},
-        "sap.ui.unified": {}
+        "sap.ui.unified": {},
+        "sap.f": {}
       }
     },
     "contentDensities": {
@@ -94,17 +90,33 @@
       },
       "routes": [
         {
-          "name": "RouteMain",
-          "pattern": ":?query:",
-          "target": [
-            "TargetMain"
-          ]
+          "name": "Dashboard",
+          "pattern": "",
+          "target": ["TargetDashboard"]
+        },
+        {
+          "name": "VehicleList",
+          "pattern": "vehicles",
+          "target": ["TargetVehicleList"]
+        },
+        {
+          "name": "RentalList",
+          "pattern": "rentals",
+          "target": ["TargetRentalList"]
         }
       ],
       "targets": {
-        "TargetMain": {
-          "id": "Main",
-          "name": "Main"
+        "TargetDashboard": {
+          "id": "Dashboard",
+          "name": "Dashboard"
+        },
+        "TargetVehicleList": {
+          "id": "VehicleList",
+          "name": "VehicleList"
+        },
+        "TargetRentalList": {
+          "id": "RentalList",
+          "name": "RentalList"
         }
       }
     },

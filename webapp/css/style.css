@@ -1,1 +1,22 @@
-/* Enter your custom styles here */
+.dashboardHeader {
+    background-color: #ffffff;
+    border-bottom: 2px solid #0070f2;
+}
+
+.kpiNumber {
+    font-size: 1.5rem !important;
+    min-width: 3rem;
+    text-align: center;
+}
+
+.sapMPage > section {
+    background-color: #f5f6f7;
+}
+
+.sapFCard {
+    transition: box-shadow 0.2s ease;
+}
+
+.sapFCard:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
