@@ -1,9 +1,8 @@
 sap.ui.define([
     "./BaseController",
     "sap/ui/model/json/JSONModel",
-    "sap/m/HBox",
-    "sap/m/Text"
-], function (BaseController, JSONModel, HBox, Text) {
+    "sap/m/FeedListItem"
+], function (BaseController, JSONModel, FeedListItem) {
     "use strict";
 
     return BaseController.extend("z00196ss26.vehicle.rental.controller.Dashboard", {
@@ -91,33 +90,35 @@ sap.ui.define([
             }
         },
 
-        onAiSend: function () {
-            var oInput = this.byId("dashAiDialogInputField");
-            var oMessages = this.byId("dashAiDialogMessages");
-            if (!oInput || !oMessages) {
-                return;
+        onHeroAiSend: function (oEvent) {
+            var sValue = (oEvent.getParameter("query") || "").trim();
+            if (sValue) {
+                this._addChatMessage(sValue, true);
+                this._addChatMessage("Demo mode — connect Gemini API for real answers.", false);
+                this.byId("dashHeroInput").setValue("");
             }
+            var oDialog = this.byId("dashAiDialog");
+            if (oDialog) { oDialog.open(); }
+        },
 
-            var sValue = (oInput.getValue() || "").trim();
-            if (!sValue) {
-                return;
-            }
+        onAiPost: function (oEvent) {
+            var sValue = oEvent.getParameter("value");
+            if (!sValue) { return; }
+            this._addChatMessage(sValue, true);
+            this._addChatMessage("Demo mode — connect Gemini API for real answers.", false);
+        },
 
-            var oUserText = new Text({ text: sValue }).addStyleClass("heroAiText");
-            var oUserBubble = new HBox({ justifyContent: "End" })
-                .addStyleClass("heroAiBubble")
-                .addStyleClass("heroAiBubbleUser")
-                .addItem(oUserText);
-
-            var oBotText = new Text({ text: "Got it. AI reply is a demo here." }).addStyleClass("heroAiText");
-            var oBotBubble = new HBox()
-                .addStyleClass("heroAiBubble")
-                .addStyleClass("heroAiBubbleBot")
-                .addItem(oBotText);
-
-            oMessages.addItem(oUserBubble);
-            oMessages.addItem(oBotBubble);
-            oInput.setValue("");
+        _addChatMessage: function (sText, bIsUser) {
+            var oList = this.byId("dashAiChatList");
+            if (!oList) { return; }
+            oList.addItem(new FeedListItem({
+                sender:       bIsUser ? "You" : "Fleet AI",
+                text:         sText,
+                showIcon:     !bIsUser,
+                icon:         bIsUser ? undefined : "sap-icon://discussion-2",
+                senderActive: false,
+                timestamp:    new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+            }));
         }
     });
 });

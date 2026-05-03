@@ -17,9 +17,9 @@
                         stretchContentHeight="false"
                         applyContentPadding="false">
                 <items>
-                    <IconTabFilter id="rentalTabAll" key="ALL"    text="{i18n>filterAll}"    count="{rentalView>/allCount}"    showAll="true"/>
+                    <IconTabFilter id="rentalTabAll"    key="ALL"    text="{i18n>filterAll}"    count="{rentalView>/allCount}"    showAll="true"/>
                     <IconTabSeparator id="rentalTabSep"/>
-                    <IconTabFilter id="rentalTabOpen" key="OPEN"   text="{i18n>statusOpen}"   count="{rentalView>/openCount}"   iconColor="Critical" icon="sap-icon://pending"/>
+                    <IconTabFilter id="rentalTabOpen"   key="OPEN"   text="{i18n>statusOpen}"   count="{rentalView>/openCount}"   iconColor="Critical" icon="sap-icon://pending"/>
                     <IconTabFilter id="rentalTabActive" key="ACTIVE" text="{i18n>statusActive}" count="{rentalView>/activeCount}" iconColor="Positive" icon="sap-icon://accept"/>
                     <IconTabFilter id="rentalTabClosed" key="CLOSED" text="{i18n>statusClosed}" count="{rentalView>/closedCount}" iconColor="Neutral"  icon="sap-icon://complete"/>
                 </items>
@@ -38,52 +38,107 @@
                                 <SearchField id="rentalSearch"
                                     placeholder="{i18n>searchRentals}"
                                     liveChange=".onSearchRental"
-                                    width="300px"/>
+                                    width="280px"/>
                                 <ToolbarSpacer id="rentalToolbarSpacer"/>
                                 <Button id="rentalAddButton" text="{i18n>addRental}" icon="sap-icon://add" press=".onAddRental" type="Emphasized"/>
                                 <Button id="rentalRefreshButton" icon="sap-icon://refresh" tooltip="{i18n>refresh}" press=".onRefresh" type="Transparent"/>
                             </OverflowToolbar>
                         </headerToolbar>
                         <columns>
-                            <Column id="rentalColRentalId" width="6rem"><Text id="rentalColRentalIdText" text="{i18n>rentalId}"/></Column>
-                            <Column id="rentalColVehicleId" width="6rem"><Text id="rentalColVehicleIdText" text="{i18n>vehicleId}"/></Column>
-                            <Column id="rentalColCustomer"><Text id="rentalColCustomerText" text="{i18n>customerName}"/></Column>
-                            <Column id="rentalColPickup"><Text id="rentalColPickupText" text="{i18n>pickupDate}"/></Column>
-                            <Column id="rentalColReturn"><Text id="rentalColReturnText" text="{i18n>returnDate}"/></Column>
-                            <Column id="rentalColDuration" hAlign="Right"><Text id="rentalColDurationText" text="{i18n>durationDays}"/></Column>
-                            <Column id="rentalColTotalPrice" hAlign="Right"><Text id="rentalColTotalPriceText" text="{i18n>totalPrice}"/></Column>
-                            <Column id="rentalColStatus" hAlign="Center"><Text id="rentalColStatusText" text="{i18n>status}"/></Column>
-                            <Column id="rentalColRequests"><Text id="rentalColRequestsText" text="{i18n>specialRequests}"/></Column>
-                            <Column id="rentalColActions" width="10rem" hAlign="Center"><Text id="rentalColActionsText" text="{i18n>actions}"/></Column>
+                            <Column id="rentalColBooking" width="9rem">
+                                <Text id="rentalColBookingText" text="{i18n>rentalId}"/>
+                            </Column>
+                            <Column id="rentalColCustomer">
+                                <Text id="rentalColCustomerText" text="{i18n>customerName}"/>
+                            </Column>
+                            <Column id="rentalColPeriod" width="16rem">
+                                <Text id="rentalColPeriodText" text="{i18n>period}"/>
+                            </Column>
+                            <Column id="rentalColAmount" width="9rem" hAlign="Right">
+                                <Text id="rentalColAmountText" text="{i18n>totalPrice}"/>
+                            </Column>
+                            <Column id="rentalColStatus" width="9rem" hAlign="Center">
+                                <Text id="rentalColStatusText" text="{i18n>status}"/>
+                            </Column>
+                            <Column id="rentalColActions" width="11rem" hAlign="Center">
+                                <Text id="rentalColActionsText" text="{i18n>actions}"/>
+                            </Column>
                         </columns>
                         <items>
                             <ColumnListItem id="rentalListItem" vAlign="Middle">
                                 <cells>
-                                    <ObjectIdentifier id="rentalCellRentalId" title="{RentalId}"/>
-                                    <Text id="rentalCellVehicleId" text="{VehicleId}"/>
-                                    <Text id="rentalCellCustomerName" text="{CustomerName}" wrapping="false"/>
-                                    <Text id="rentalCellPickupDate" text="{PickupDate}"/>
-                                    <Text id="rentalCellReturnDate" text="{ReturnDate}"/>
-                                    <ObjectNumber id="rentalCellDuration" number="{DurationDays}" unit="{i18n>days}"/>
-                                    <ObjectNumber id="rentalCellTotalPrice" number="{TotalPrice}" unit="{CurrencyCode}" emphasized="true"/>
+
+                                    <!-- Rental ID + Vehicle ID -->
+                                    <VBox id="rentalCellBookingBox">
+                                        <ObjectIdentifier id="rentalCellRentalId" title="{RentalId}"/>
+                                        <Text id="rentalCellVehicleId" text="{VehicleId}" class="listSubText"/>
+                                    </VBox>
+
+                                    <!-- Customer + Special Requests -->
+                                    <VBox id="rentalCellCustomerBox">
+                                        <Text id="rentalCellCustomerName" text="{CustomerName}" class="customerNameText"/>
+                                        <Text id="rentalCellRequests" text="{SpecialRequests}" class="listSubText" maxLines="1" wrapping="false"/>
+                                    </VBox>
+
+                                    <!-- Pickup → Return + Duration -->
+                                    <VBox id="rentalCellPeriodBox">
+                                        <HBox id="rentalCellDateRow" alignItems="Center">
+                                            <Text id="rentalCellPickupDate"
+                                                text="{path: 'PickupDate', formatter: '.formatter.formatDate'}"
+                                                class="dateText"/>
+                                            <core:Icon id="rentalCellDateArrow"
+                                                src="sap-icon://navigation-right-arrow"
+                                                size="0.65rem"
+                                                class="dateArrowIcon"/>
+                                            <Text id="rentalCellReturnDate"
+                                                text="{path: 'ReturnDate', formatter: '.formatter.formatDate'}"
+                                                class="dateText"/>
+                                        </HBox>
+                                        <Text id="rentalCellDuration"
+                                            text="{= ${DurationDays} + ' days'}"
+                                            class="listSubText"/>
+                                    </VBox>
+
+                                    <!-- Total Price -->
+                                    <ObjectNumber id="rentalCellTotalPrice"
+                                        number="{TotalPrice}"
+                                        unit="{CurrencyCode}"
+                                        emphasized="true"/>
+
+                                    <!-- Status -->
                                     <ObjectStatus id="rentalCellStatus"
-                                        text="{Status}"
-                                        state="{
-                                            path: 'Status',
-                                            formatter: '.formatter.rentalStatusState'
-                                        }"
-                                        icon="{
-                                            path: 'Status',
-                                            formatter: '.formatter.rentalStatusIcon'
-                                        }"
+                                        text="{path: 'Status', formatter: '.formatter.rentalStatusText'}"
+                                        state="{path: 'Status', formatter: '.formatter.rentalStatusState'}"
+                                        icon="{path: 'Status', formatter: '.formatter.rentalStatusIcon'}"
                                         inverted="true"/>
-                                    <Text id="rentalCellRequests" text="{SpecialRequests}" wrapping="false" maxLines="1"/>
-                                    <HBox id="rentalCellActions" justifyContent="Center">
-                                        <Button id="rentalConfirmButton" text="{i18n>confirmRental}" icon="sap-icon://accept"  press=".onConfirmRental" type="Accept"      visible="{= ${Status} === 'OPEN'}"/>
-                                        <Button id="rentalCloseButton" text="{i18n>closeRental}"   icon="sap-icon://process" press=".onCloseRental"   type="Transparent" visible="{= ${Status} === 'ACTIVE'}"/>
-                                        <Button id="rentalEditButton" icon="sap-icon://edit"   tooltip="{i18n>edit}"   press=".onEditRental"   type="Transparent" visible="{= ${Status} !== 'CLOSED'}"/>
-                                        <Button id="rentalDeleteButton" icon="sap-icon://delete" tooltip="{i18n>delete}" press=".onDeleteRental" type="Transparent"/>
+
+                                    <!-- Actions -->
+                                    <HBox id="rentalCellActions" justifyContent="Center" alignItems="Center">
+                                        <Button id="rentalConfirmButton"
+                                            icon="sap-icon://accept"
+                                            tooltip="{i18n>confirmRental}"
+                                            press=".onConfirmRental"
+                                            type="Accept"
+                                            visible="{= ${Status} === 'OPEN'}"/>
+                                        <Button id="rentalCloseButton"
+                                            icon="sap-icon://process"
+                                            tooltip="{i18n>closeRental}"
+                                            press=".onCloseRental"
+                                            type="Transparent"
+                                            visible="{= ${Status} === 'ACTIVE'}"/>
+                                        <Button id="rentalEditButton"
+                                            icon="sap-icon://edit"
+                                            tooltip="{i18n>edit}"
+                                            press=".onEditRental"
+                                            type="Transparent"
+                                            visible="{= ${Status} !== 'CLOSED'}"/>
+                                        <Button id="rentalDeleteButton"
+                                            icon="sap-icon://delete"
+                                            tooltip="{i18n>delete}"
+                                            press=".onDeleteRental"
+                                            type="Transparent"/>
                                     </HBox>
+
                                 </cells>
                             </ColumnListItem>
                         </items>

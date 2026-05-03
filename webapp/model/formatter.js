@@ -46,7 +46,30 @@ sap.ui.define([], function () {
             var aParts = [];
             if (sFuel) { aParts.push(sFuel); }
             if (sTrans) { aParts.push(sTrans); }
-            return aParts.join(" | ");
+            return aParts.join(" · ");
+        },
+
+        formatDate: function (oDate) {
+            if (!oDate) { return "–"; }
+            var d = (oDate instanceof Date) ? oDate : new Date(oDate);
+            if (isNaN(d.getTime())) { return "–"; }
+            var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            return String(d.getDate()).padStart(2, "0") + " " + months[d.getMonth()] + " " + d.getFullYear();
+        },
+
+        formatMileage: function (nMileage) {
+            if (nMileage === null || nMileage === undefined || nMileage === "") { return ""; }
+            var n = parseInt(nMileage, 10);
+            return isNaN(n) ? "" : n.toLocaleString("en-US") + " km";
+        },
+
+        rentalStatusText: function (sStatus) {
+            switch (sStatus) {
+                case "ACTIVE": return "Active";
+                case "OPEN":   return "Open";
+                case "CLOSED": return "Closed";
+                default:       return sStatus || "";
+            }
         }
     };
 });

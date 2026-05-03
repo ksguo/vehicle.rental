@@ -2,13 +2,13 @@
     controllerName="z00196ss26.vehicle.rental.controller.Dashboard"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    xmlns:f="sap.f"
-    xmlns:fCards="sap.f.cards"
     xmlns:core="sap.ui.core"
     xmlns:layout="sap.ui.layout">
 
     <Page id="dashboardPage" showHeader="false">
         <content>
+
+            <!-- ═══ PAGE HEADER ═══ -->
             <Panel id="dashHeaderPanel" class="sapUiNoContentPadding">
                 <Toolbar id="dashHeaderToolbar" class="dashboardHeader" height="4rem">
                     <core:Icon id="dashHeaderIcon" src="sap-icon://car-rental" size="1.75rem" class="sapUiSmallMarginBegin sapUiSmallMarginEnd" color="#0070f2"/>
@@ -20,125 +20,130 @@
 
             <VBox id="dashContentBox" class="sapUiResponsiveMargin">
 
-                <!-- BANNER -->
-                <Panel id="dashBannerPanel" class="dashboardBanner heroBanner sapUiSmallMarginBottom">
-                    <HBox id="dashBannerRow" alignItems="Center" justifyContent="SpaceBetween" class="heroRow">
-                        <VBox id="dashBannerTextBox" class="heroTextBox">
-                            <Text id="dashBannerEyebrow" text="AI Insights" class="heroEyebrow"/>
-                            <Title id="dashBannerTitle" text="Smarter Fleet Decisions" level="H3" class="heroTitle"/>
-                            <Text id="dashBannerText" text="{i18n>heroDescription}" class="heroSub"/>
-                            <HBox id="dashBannerCta" alignItems="Center" class="heroCtaRow">
-                                <Button id="dashBannerAiButton" text="Ask AI" icon="sap-icon://discussion-2" type="Emphasized" press=".onOpenAiDialog"/>
-                                <Text id="dashBannerHint" text="Try: Show available vehicles today" class="heroHint"/>
-                            </HBox>
-                        </VBox>
-                    </HBox>
-                </Panel>
+                <!-- ═══ HERO: AI ASSISTANT ═══ -->
+                <VBox id="dashHeroPanel" class="dashHero sapUiSmallMarginBottom" alignItems="Center">
+                    <Text id="dashHeroEyebrow" text="Fleet AI" class="dashHeroEyebrow"/>
+                    <Title id="dashHeroTitle" text="{i18n>heroAiTitle}" level="H1" class="dashHeroTitle"/>
+                    <Text id="dashHeroSub" text="{i18n>heroAiSub}" class="dashHeroSub"/>
+                    <SearchField
+                        id="dashHeroInput"
+                        placeholder="{i18n>heroAiHint}"
+                        search=".onHeroAiSend"
+                        showSearchButton="true"
+                        class="dashHeroSearchField"/>
+                </VBox>
 
-                <!-- KPI ROW -->
+                <!-- ═══ KPI CARDS ═══ -->
                 <layout:Grid id="dashKpiGrid" defaultSpan="XL4 L4 M6 S12" class="sapUiSmallMarginBottom">
 
-                    <f:Card id="dashKpiCardVehicles" width="100%">
-                        <f:header>
-                            <fCards:NumericHeader
-                                id="dashKpiHeaderVehicles"
-                                title="{i18n>totalVehicles}"
-                                subtitle="{i18n>fleetOverview}"
-                                number="{dashboard>/vehicleCount}"
-                                scale="{i18n>vehicles}"
-                                state="Good"/>
-                        </f:header>
-                        <f:content>
-                            <HBox id="dashKpiVehiclesRow" justifyContent="SpaceAround" class="sapUiSmallMargin kpiFooterRow">
-                                <VBox id="dashKpiAvailableBox" alignItems="Center" class="kpiFooterItem">
-                                    <ObjectStatus id="dashKpiAvailableValue" text="{dashboard>/availableCount}" state="Success" inverted="true" class="kpiNumber kpiBadge"/>
-                                    <Label id="dashKpiAvailableLabel" text="{i18n>filterAvailable}" class="kpiFooterLabel"/>
-                                </VBox>
-                                <VBox id="dashKpiRentedBox" alignItems="Center" class="kpiFooterItem">
-                                    <ObjectStatus id="dashKpiRentedValue" text="{dashboard>/rentedCount}" state="Error" inverted="true" class="kpiNumber kpiBadge"/>
-                                    <Label id="dashKpiRentedLabel" text="{i18n>filterRented}" class="kpiFooterLabel"/>
-                                </VBox>
+                    <!-- Fleet -->
+                    <VBox id="dashKpiVehicles" class="kpiCard kpiCardBlue">
+                        <HBox id="dashKpiVehiclesTop" justifyContent="SpaceBetween" alignItems="Center" class="kpiCardTopRow">
+                            <VBox id="dashKpiVehiclesLabelBox">
+                                <Text id="dashKpiVehiclesTitle" text="{i18n>totalVehicles}" class="kpiCardLabel"/>
+                                <Text id="dashKpiVehiclesSub" text="{i18n>fleetOverview}" class="kpiCardSub"/>
+                            </VBox>
+                            <HBox id="dashKpiVehiclesIconBox" class="kpiIconBox kpiIconBoxBlue" alignItems="Center" justifyContent="Center">
+                                <core:Icon id="dashKpiVehiclesIcon" src="sap-icon://car-rental" size="1.35rem"/>
                             </HBox>
-                        </f:content>
-                    </f:Card>
+                        </HBox>
+                        <Text id="dashKpiVehiclesNumber" text="{dashboard>/vehicleCount}" class="kpiCardNumber"/>
+                        <HBox id="dashKpiVehiclesMetrics" class="kpiCardMetrics">
+                            <VBox id="dashKpiAvailBox" class="kpiMetricItem" alignItems="Center">
+                                <ObjectStatus id="dashKpiAvailBadge" text="{dashboard>/availableCount}" state="Success" inverted="true" class="kpiBadge"/>
+                                <Text id="dashKpiAvailLbl" text="{i18n>filterAvailable}" class="kpiMetricLabel"/>
+                            </VBox>
+                            <VBox id="dashKpiRentedBox" class="kpiMetricItem" alignItems="Center">
+                                <ObjectStatus id="dashKpiRentedBadge" text="{dashboard>/rentedCount}" state="Error" inverted="true" class="kpiBadge"/>
+                                <Text id="dashKpiRentedLbl" text="{i18n>filterRented}" class="kpiMetricLabel"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
 
-                    <f:Card id="dashKpiCardRentals" width="100%">
-                        <f:header>
-                            <fCards:NumericHeader
-                                id="dashKpiHeaderRentals"
-                                title="{i18n>activeRentals}"
-                                subtitle="{i18n>currentlyRented}"
-                                number="{dashboard>/activeCount}"
-                                scale="{i18n>active}"
-                                state="Good"/>
-                        </f:header>
-                        <f:content>
-                            <HBox id="dashKpiRentalsRow" justifyContent="SpaceAround" class="sapUiSmallMargin kpiFooterRow">
-                                <VBox id="dashKpiOpenBox" alignItems="Center" class="kpiFooterItem">
-                                    <ObjectStatus id="dashKpiOpenValue" text="{dashboard>/openCount}" state="Warning" inverted="true" class="kpiNumber kpiBadge"/>
-                                    <Label id="dashKpiOpenLabel" text="{i18n>statusOpen}" class="kpiFooterLabel"/>
-                                </VBox>
-                                <VBox id="dashKpiClosedBox" alignItems="Center" class="kpiFooterItem">
-                                    <ObjectStatus id="dashKpiClosedValue" text="{dashboard>/closedCount}" state="None" inverted="true" class="kpiNumber kpiBadge"/>
-                                    <Label id="dashKpiClosedLabel" text="{i18n>statusClosed}" class="kpiFooterLabel"/>
-                                </VBox>
+                    <!-- Rentals -->
+                    <VBox id="dashKpiRentals" class="kpiCard kpiCardGreen">
+                        <HBox id="dashKpiRentalsTop" justifyContent="SpaceBetween" alignItems="Center" class="kpiCardTopRow">
+                            <VBox id="dashKpiRentalsLabelBox">
+                                <Text id="dashKpiRentalsTitle" text="{i18n>activeRentals}" class="kpiCardLabel"/>
+                                <Text id="dashKpiRentalsSub" text="{i18n>currentlyRented}" class="kpiCardSub"/>
+                            </VBox>
+                            <HBox id="dashKpiRentalsIconBox" class="kpiIconBox kpiIconBoxGreen" alignItems="Center" justifyContent="Center">
+                                <core:Icon id="dashKpiRentalsIcon" src="sap-icon://document-text" size="1.35rem"/>
                             </HBox>
-                        </f:content>
-                    </f:Card>
+                        </HBox>
+                        <Text id="dashKpiRentalsNumber" text="{dashboard>/activeCount}" class="kpiCardNumber"/>
+                        <HBox id="dashKpiRentalsMetrics" class="kpiCardMetrics">
+                            <VBox id="dashKpiOpenBox" class="kpiMetricItem" alignItems="Center">
+                                <ObjectStatus id="dashKpiOpenBadge" text="{dashboard>/openCount}" state="Warning" inverted="true" class="kpiBadge"/>
+                                <Text id="dashKpiOpenLbl" text="{i18n>statusOpen}" class="kpiMetricLabel"/>
+                            </VBox>
+                            <VBox id="dashKpiClosedBox" class="kpiMetricItem" alignItems="Center">
+                                <ObjectStatus id="dashKpiClosedBadge" text="{dashboard>/closedCount}" state="None" inverted="true" class="kpiBadge"/>
+                                <Text id="dashKpiClosedLbl" text="{i18n>statusClosed}" class="kpiMetricLabel"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
 
-                    <f:Card id="dashKpiCardRevenue" width="100%">
-                        <f:header>
-                            <fCards:NumericHeader
-                                id="dashKpiHeaderRevenue"
-                                title="{i18n>revenue}"
-                                subtitle="{i18n>totalBookingValue}"
-                                number="{dashboard>/totalRevenue}"
-                                scale="EUR"
-                                state="Good"/>
-                        </f:header>
-                        <f:content>
-                            <HBox id="dashKpiRevenueRow" justifyContent="SpaceAround" class="sapUiSmallMargin kpiFooterRow">
-                                <VBox id="dashKpiTotalBookingsBox" alignItems="Center" class="kpiFooterItem">
-                                    <ObjectStatus id="dashKpiTotalBookingsValue" text="{dashboard>/totalRentals}" state="Information" inverted="true" class="kpiNumber kpiBadge"/>
-                                    <Label id="dashKpiTotalBookingsLabel" text="{i18n>totalBookings}" class="kpiFooterLabel"/>
-                                </VBox>
-                                <VBox id="dashKpiAvgRateBox" alignItems="Center" class="kpiFooterItem">
-                                    <ObjectStatus id="dashKpiAvgRateValue" text="{dashboard>/avgRate}" state="Information" inverted="true" class="kpiNumber kpiBadge"/>
-                                    <Label id="dashKpiAvgRateLabel" text="{i18n>avgDailyRate}" class="kpiFooterLabel"/>
-                                </VBox>
+                    <!-- Revenue -->
+                    <VBox id="dashKpiRevenue" class="kpiCard kpiCardOrange">
+                        <HBox id="dashKpiRevenueTop" justifyContent="SpaceBetween" alignItems="Center" class="kpiCardTopRow">
+                            <VBox id="dashKpiRevenueLabelBox">
+                                <Text id="dashKpiRevenueTitle" text="{i18n>revenue}" class="kpiCardLabel"/>
+                                <Text id="dashKpiRevenueSub" text="{i18n>totalBookingValue}" class="kpiCardSub"/>
+                            </VBox>
+                            <HBox id="dashKpiRevenueIconBox" class="kpiIconBox kpiIconBoxOrange" alignItems="Center" justifyContent="Center">
+                                <core:Icon id="dashKpiRevenueIcon" src="sap-icon://money-bills" size="1.35rem"/>
                             </HBox>
-                        </f:content>
-                    </f:Card>
+                        </HBox>
+                        <HBox id="dashKpiRevenueNumRow" alignItems="Baseline">
+                            <Text id="dashKpiRevenueNumber" text="{dashboard>/totalRevenue}" class="kpiCardNumber kpiCardNumberMd"/>
+                            <Text id="dashKpiRevenueCurrency" text=" EUR" class="kpiCardCurrency"/>
+                        </HBox>
+                        <HBox id="dashKpiRevenueMetrics" class="kpiCardMetrics">
+                            <VBox id="dashKpiBkgBox" class="kpiMetricItem" alignItems="Center">
+                                <ObjectStatus id="dashKpiBkgBadge" text="{dashboard>/totalRentals}" state="Information" inverted="true" class="kpiBadge"/>
+                                <Text id="dashKpiBkgLbl" text="{i18n>totalBookings}" class="kpiMetricLabel"/>
+                            </VBox>
+                            <VBox id="dashKpiAvgBox" class="kpiMetricItem" alignItems="Center">
+                                <ObjectStatus id="dashKpiAvgBadge" text="{dashboard>/avgRate}" state="Information" inverted="true" class="kpiBadge"/>
+                                <Text id="dashKpiAvgLbl" text="{i18n>avgDailyRate}" class="kpiMetricLabel"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
 
                 </layout:Grid>
 
-                <!-- ACTION CARDS -->
-                <layout:Grid id="dashActionGrid" defaultSpan="XL6 L6 M6 S12">
+                <!-- ═══ NAV CARDS ═══ -->
+                <layout:Grid id="dashNavGrid" defaultSpan="XL6 L6 M6 S12">
 
-                    <VBox id="dashVehiclesCard" class="actionCard">
-                        <HBox id="dashVehiclesHeader" class="actionCardHeader" alignItems="Center">
-                            <core:Icon id="dashVehiclesIcon" src="sap-icon://car-rental" size="1.25rem" class="sapUiSmallMarginEnd"/>
-                            <Title id="dashVehiclesTitle" text="{i18n>manageVehicles}" level="H5"/>
+                    <VBox id="dashNavVehicles" class="navCard">
+                        <HBox id="dashNavVehiclesTop" justifyContent="SpaceBetween" alignItems="Start" class="navCardTop">
+                            <HBox id="dashNavVehiclesIconWrap" class="navCardIconBox navCardIconBlue" alignItems="Center" justifyContent="Center">
+                                <core:Icon id="dashNavVehiclesIcon" src="sap-icon://car-rental" size="1.5rem"/>
+                            </HBox>
+                            <Text id="dashNavVehiclesCount" text="{dashboard>/vehicleCount}" class="navCardBadge"/>
                         </HBox>
-                        <VBox id="dashVehiclesBody" class="actionCardBody">
-                            <Text id="dashVehiclesDesc" text="{i18n>cardVehicleFleetDesc}" class="actionCardDesc"/>
-                            <VBox id="dashVehiclesFooter" class="actionCardFooter">
-                                <Link id="dashVehiclesLink" text="{i18n>viewAllVehicles}" press=".onNavToVehicles"/>
-                            </VBox>
-                        </VBox>
+                        <Title id="dashNavVehiclesTitle" text="{i18n>manageVehicles}" level="H4" class="navCardTitle"/>
+                        <Text id="dashNavVehiclesDesc" text="{i18n>cardVehicleFleetDesc}" class="navCardDesc"/>
+                        <HBox id="dashNavVehiclesFooter" class="navCardFooter" alignItems="Center">
+                            <Link id="dashNavVehiclesLink" text="{i18n>viewAllVehicles}" press=".onNavToVehicles" class="navCardLink"/>
+                            <core:Icon id="dashNavVehiclesArrow" src="sap-icon://slim-arrow-right" size="0.8rem" class="navCardArrow"/>
+                        </HBox>
                     </VBox>
 
-                    <VBox id="dashRentalsCard" class="actionCard">
-                        <HBox id="dashRentalsHeader" class="actionCardHeader" alignItems="Center">
-                            <core:Icon id="dashRentalsIcon" src="sap-icon://document-text" size="1.25rem" class="sapUiSmallMarginEnd"/>
-                            <Title id="dashRentalsTitle" text="{i18n>manageRentals}" level="H5"/>
+                    <VBox id="dashNavRentals" class="navCard">
+                        <HBox id="dashNavRentalsTop" justifyContent="SpaceBetween" alignItems="Start" class="navCardTop">
+                            <HBox id="dashNavRentalsIconWrap" class="navCardIconBox navCardIconGreen" alignItems="Center" justifyContent="Center">
+                                <core:Icon id="dashNavRentalsIcon" src="sap-icon://document-text" size="1.5rem"/>
+                            </HBox>
+                            <Text id="dashNavRentalsCount" text="{dashboard>/totalRentals}" class="navCardBadge"/>
                         </HBox>
-                        <VBox id="dashRentalsBody" class="actionCardBody">
-                            <Text id="dashRentalsDesc" text="{i18n>cardRentalBookingsDesc}" class="actionCardDesc"/>
-                            <VBox id="dashRentalsFooter" class="actionCardFooter">
-                                <Link id="dashRentalsLink" text="{i18n>viewAllRentals}" press=".onNavToRentals"/>
-                            </VBox>
-                        </VBox>
+                        <Title id="dashNavRentalsTitle" text="{i18n>manageRentals}" level="H4" class="navCardTitle"/>
+                        <Text id="dashNavRentalsDesc" text="{i18n>cardRentalBookingsDesc}" class="navCardDesc"/>
+                        <HBox id="dashNavRentalsFooter" class="navCardFooter" alignItems="Center">
+                            <Link id="dashNavRentalsLink" text="{i18n>viewAllRentals}" press=".onNavToRentals" class="navCardLink"/>
+                            <core:Icon id="dashNavRentalsArrow" src="sap-icon://slim-arrow-right" size="0.8rem" class="navCardArrow"/>
+                        </HBox>
                     </VBox>
 
                 </layout:Grid>
@@ -149,35 +154,34 @@
         <dependents>
             <Dialog
                 id="dashAiDialog"
-                title="AI Assistant"
-                contentWidth="640px"
-                contentHeight="420px"
+                title="Fleet AI"
+                contentWidth="560px"
                 stretch="{= ${device>/system/phone} }"
-                class="heroAiDialog">
+                class="aiDialog">
                 <content>
-                    <VBox id="dashAiDialogPanel" class="heroAiDialogPanel">
-                        <VBox id="dashAiDialogMessages" class="heroAiMessages">
-                            <HBox id="dashAiDialogBubbleUser" justifyContent="End" class="heroAiBubble heroAiBubbleUser">
-                                <Text id="dashAiDialogTextUser" text="Any vehicles available today?" class="heroAiText"/>
-                            </HBox>
-                            <HBox id="dashAiDialogBubbleBot" class="heroAiBubble heroAiBubbleBot">
-                                <Text id="dashAiDialogTextBot" text="8 vehicles are available. Want the lowest rate?" class="heroAiText"/>
-                            </HBox>
-                        </VBox>
-                        <HBox id="dashAiDialogInput" alignItems="Center" class="heroAiInput">
-                            <Input
-                                id="dashAiDialogInputField"
-                                placeholder="Ask about vehicles, rentals, revenue..."
-                                submit=".onAiSend"
-                                class="heroAiInputField"/>
-                            <Button
-                                id="dashAiDialogSendButton"
-                                icon="sap-icon://paper-plane"
-                                type="Emphasized"
-                                press=".onAiSend"
-                                class="heroAiSendButton"/>
-                        </HBox>
-                    </VBox>
+                    <List
+                        id="dashAiChatList"
+                        showSeparators="None"
+                        class="aiChatList">
+                        <FeedListItem
+                            id="dashAiInitMsgUser"
+                            sender="You"
+                            text="Any vehicles available today?"
+                            showIcon="false"
+                            senderActive="false"/>
+                        <FeedListItem
+                            id="dashAiInitMsgBot"
+                            sender="Fleet AI"
+                            icon="sap-icon://discussion-2"
+                            text="8 vehicles are available. Want the lowest rate?"
+                            senderActive="false"/>
+                    </List>
+                    <FeedInput
+                        id="dashAiFeedInput"
+                        placeholder="Ask about vehicles, rentals, revenue..."
+                        post=".onAiPost"
+                        showIcon="false"
+                        class="aiChatFeedInput"/>
                 </content>
                 <endButton>
                     <Button id="dashAiDialogClose" text="Close" press=".onCloseAiDialog"/>
