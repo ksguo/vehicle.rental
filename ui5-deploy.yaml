@@ -14,12 +14,12 @@ builder:
       afterTask: generateCachebusterInfo
       configuration:
         target:
-          url: https://s40lp1.ucc.cit.tum.de:8100
+          url: https://s40lp1.ucc.cit.tum.de:8100/
           client: '300'
         app:
           name: Z00196SS26_VR
           description: Vehicle Rental Management App
           package: Z_00_196_SS26_VR
-          transport: S40K918092
+          transport: S40K918137
         exclude:
           - /test/
