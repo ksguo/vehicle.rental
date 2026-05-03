@@ -5,68 +5,68 @@
 
     <Dialog id="vehicleDialog" title="{dialog>/title}" contentWidth="480px" draggable="true" resizable="true">
         <content>
-            <f:SimpleForm editable="true" layout="ResponsiveGridLayout"
+            <f:SimpleForm id="vehicleDialogForm" editable="true" layout="ResponsiveGridLayout"
                 labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
                 columnsXL="1" columnsL="1" columnsM="1"
                 class="sapUiSmallMargin">
                 <f:content>
-                    <Label text="{i18n>vehicleId}" required="true"/>
-                    <Input value="{dialog>/VehicleId}" enabled="{dialog>/isNew}" maxLength="8" placeholder="e.g. 00000001"/>
+                    <Label id="vehicleDialogLabelVehicleId" text="{i18n>vehicleId}" required="true"/>
+                    <Input id="vehicleDialogInputVehicleId" value="{dialog>/VehicleId}" enabled="{dialog>/isNew}" maxLength="8" placeholder="e.g. 00000001"/>
 
-                    <Label text="{i18n>brand}" required="true"/>
-                    <Input value="{dialog>/Brand}" maxLength="30"/>
+                    <Label id="vehicleDialogLabelBrand" text="{i18n>brand}" required="true"/>
+                    <Input id="vehicleDialogInputBrand" value="{dialog>/Brand}" maxLength="30"/>
 
-                    <Label text="{i18n>model}" required="true"/>
-                    <Input value="{dialog>/Model}" maxLength="30"/>
+                    <Label id="vehicleDialogLabelModel" text="{i18n>model}" required="true"/>
+                    <Input id="vehicleDialogInputModel" value="{dialog>/Model}" maxLength="30"/>
 
-                    <Label text="{i18n>category}" required="true"/>
-                    <Select selectedKey="{dialog>/Category}">
+                    <Label id="vehicleDialogLabelCategory" text="{i18n>category}" required="true"/>
+                    <Select id="vehicleDialogCategorySelect" selectedKey="{dialog>/Category}">
                         <items>
-                            <core:Item text="Economy" key="ECONOMY"/>
-                            <core:Item text="Compact" key="COMPACT"/>
-                            <core:Item text="SUV"     key="SUV"/>
-                            <core:Item text="Luxury"  key="LUXURY"/>
-                            <core:Item text="Van"     key="VAN"/>
+                            <core:Item id="vehicleDialogCategoryEconomy" text="Economy" key="ECONOMY"/>
+                            <core:Item id="vehicleDialogCategoryCompact" text="Compact" key="COMPACT"/>
+                            <core:Item id="vehicleDialogCategorySuv" text="SUV"     key="SUV"/>
+                            <core:Item id="vehicleDialogCategoryLuxury" text="Luxury"  key="LUXURY"/>
+                            <core:Item id="vehicleDialogCategoryVan" text="Van"     key="VAN"/>
                         </items>
                     </Select>
 
-                    <Label text="{i18n>fuelType}"/>
-                    <Select selectedKey="{dialog>/FuelType}">
+                    <Label id="vehicleDialogLabelFuelType" text="{i18n>fuelType}"/>
+                    <Select id="vehicleDialogFuelTypeSelect" selectedKey="{dialog>/FuelType}">
                         <items>
-                            <core:Item text="Petrol"   key="PETROL"/>
-                            <core:Item text="Diesel"   key="DIESEL"/>
-                            <core:Item text="Electric" key="ELECTRIC"/>
-                            <core:Item text="Hybrid"   key="HYBRID"/>
+                            <core:Item id="vehicleDialogFuelPetrol" text="Petrol"   key="PETROL"/>
+                            <core:Item id="vehicleDialogFuelDiesel" text="Diesel"   key="DIESEL"/>
+                            <core:Item id="vehicleDialogFuelElectric" text="Electric" key="ELECTRIC"/>
+                            <core:Item id="vehicleDialogFuelHybrid" text="Hybrid"   key="HYBRID"/>
                         </items>
                     </Select>
 
-                    <Label text="{i18n>transmission}"/>
-                    <Select selectedKey="{dialog>/Transmission}">
+                    <Label id="vehicleDialogLabelTransmission" text="{i18n>transmission}"/>
+                    <Select id="vehicleDialogTransmissionSelect" selectedKey="{dialog>/Transmission}">
                         <items>
-                            <core:Item text="Manual"    key="MANUAL"/>
-                            <core:Item text="Automatic" key="AUTOMATIC"/>
+                            <core:Item id="vehicleDialogTransmissionManual" text="Manual"    key="MANUAL"/>
+                            <core:Item id="vehicleDialogTransmissionAuto" text="Automatic" key="AUTOMATIC"/>
                         </items>
                     </Select>
 
-                    <Label text="{i18n>dailyRate}"/>
-                    <Input value="{dialog>/DailyRate}" type="Number"/>
+                    <Label id="vehicleDialogLabelDailyRate" text="{i18n>dailyRate}"/>
+                    <Input id="vehicleDialogInputDailyRate" value="{dialog>/DailyRate}" type="Number"/>
 
-                    <Label text="{i18n>currency}"/>
-                    <Input value="{dialog>/CurrencyCode}" maxLength="3" placeholder="EUR"/>
+                    <Label id="vehicleDialogLabelCurrency" text="{i18n>currency}"/>
+                    <Input id="vehicleDialogInputCurrency" value="{dialog>/CurrencyCode}" maxLength="3" placeholder="EUR"/>
 
-                    <Label text="{i18n>mileage}"/>
-                    <Input value="{dialog>/Mileage}" type="Number"/>
+                    <Label id="vehicleDialogLabelMileage" text="{i18n>mileage}"/>
+                    <Input id="vehicleDialogInputMileage" value="{dialog>/Mileage}" type="Number"/>
 
-                    <Label text="{i18n>availability}"/>
-                    <CheckBox selected="{dialog>/Availability}"/>
+                    <Label id="vehicleDialogLabelAvailability" text="{i18n>availability}"/>
+                    <CheckBox id="vehicleDialogAvailabilityCheck" selected="{dialog>/Availability}"/>
                 </f:content>
             </f:SimpleForm>
         </content>
         <beginButton>
-            <Button text="{i18n>save}" press=".onSaveVehicle" type="Emphasized"/>
+            <Button id="vehicleDialogSaveButton" text="{i18n>save}" press=".onSaveVehicle" type="Emphasized"/>
         </beginButton>
         <endButton>
-            <Button text="{i18n>cancel}" press=".onCancelDialog"/>
+            <Button id="vehicleDialogCancelButton" text="{i18n>cancel}" press=".onCancelDialog"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

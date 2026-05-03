@@ -6,6 +6,7 @@
     <Dialog id="rentalDialog" title="{dialog>/title}" contentWidth="480px" draggable="true" resizable="true">
         <content>
             <MessageStrip
+                id="rentalDialogInfoStrip"
                 text="{dialog>/vehicleInfo}"
                 type="Information"
                 showIcon="true"
@@ -13,36 +14,36 @@
                 visible="{= !!${dialog>/vehicleInfo}}"
                 class="sapUiSmallMargin"/>
 
-            <f:SimpleForm editable="true" layout="ResponsiveGridLayout"
+            <f:SimpleForm id="rentalDialogForm" editable="true" layout="ResponsiveGridLayout"
                 labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
                 columnsXL="1" columnsL="1" columnsM="1"
                 class="sapUiSmallMargin">
                 <f:content>
-                    <Label text="{i18n>rentalId}" required="true"/>
-                    <Input value="{dialog>/RentalId}" enabled="{dialog>/isNew}" maxLength="8" placeholder="e.g. 00000001"/>
+                    <Label id="rentalDialogLabelRentalId" text="{i18n>rentalId}" required="true"/>
+                    <Input id="rentalDialogInputRentalId" value="{dialog>/RentalId}" enabled="{dialog>/isNew}" maxLength="8" placeholder="e.g. 00000001"/>
 
-                    <Label text="{i18n>vehicleId}" required="true"/>
-                    <Input value="{dialog>/VehicleId}" enabled="{dialog>/vehicleIdEnabled}" maxLength="8" placeholder="e.g. 00000001"/>
+                    <Label id="rentalDialogLabelVehicleId" text="{i18n>vehicleId}" required="true"/>
+                    <Input id="rentalDialogInputVehicleId" value="{dialog>/VehicleId}" enabled="{dialog>/vehicleIdEnabled}" maxLength="8" placeholder="e.g. 00000001"/>
 
-                    <Label text="{i18n>customerName}" required="true"/>
-                    <Input value="{dialog>/CustomerName}" maxLength="50" placeholder="{i18n>customerNamePlaceholder}"/>
+                    <Label id="rentalDialogLabelCustomerName" text="{i18n>customerName}" required="true"/>
+                    <Input id="rentalDialogInputCustomerName" value="{dialog>/CustomerName}" maxLength="50" placeholder="{i18n>customerNamePlaceholder}"/>
 
-                    <Label text="{i18n>pickupDate}" required="true"/>
-                    <DatePicker value="{dialog>/PickupDate}" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" placeholder="dd.MM.yyyy"/>
+                    <Label id="rentalDialogLabelPickupDate" text="{i18n>pickupDate}" required="true"/>
+                    <DatePicker id="rentalDialogPickupDate" value="{dialog>/PickupDate}" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" placeholder="dd.MM.yyyy"/>
 
-                    <Label text="{i18n>returnDate}" required="true"/>
-                    <DatePicker value="{dialog>/ReturnDate}" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" placeholder="dd.MM.yyyy"/>
+                    <Label id="rentalDialogLabelReturnDate" text="{i18n>returnDate}" required="true"/>
+                    <DatePicker id="rentalDialogReturnDate" value="{dialog>/ReturnDate}" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" placeholder="dd.MM.yyyy"/>
 
-                    <Label text="{i18n>specialRequests}"/>
-                    <TextArea value="{dialog>/SpecialRequests}" rows="3" maxLength="200" growing="true" placeholder="{i18n>specialRequestsPlaceholder}"/>
+                    <Label id="rentalDialogLabelRequests" text="{i18n>specialRequests}"/>
+                    <TextArea id="rentalDialogTextAreaRequests" value="{dialog>/SpecialRequests}" rows="3" maxLength="200" growing="true" placeholder="{i18n>specialRequestsPlaceholder}"/>
                 </f:content>
             </f:SimpleForm>
         </content>
         <beginButton>
-            <Button text="{i18n>save}" press=".onSaveRental" type="Emphasized"/>
+            <Button id="rentalDialogSaveButton" text="{i18n>save}" press=".onSaveRental" type="Emphasized"/>
         </beginButton>
         <endButton>
-            <Button text="{i18n>cancel}" press=".onCancelDialog"/>
+            <Button id="rentalDialogCancelButton" text="{i18n>cancel}" press=".onCancelDialog"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

@@ -17,10 +17,10 @@
                         stretchContentHeight="false"
                         applyContentPadding="false">
                 <items>
-                    <IconTabFilter key="ALL"   text="{i18n>filterAll}"       count="{vehicleView>/allCount}"       showAll="true"/>
-                    <IconTabSeparator/>
-                    <IconTabFilter key="true"  text="{i18n>filterAvailable}" count="{vehicleView>/availableCount}" iconColor="Positive" icon="sap-icon://accept"/>
-                    <IconTabFilter key="false" text="{i18n>filterRented}"    count="{vehicleView>/rentedCount}"    iconColor="Negative" icon="sap-icon://decline"/>
+                    <IconTabFilter id="vehicleTabAll" key="ALL"   text="{i18n>filterAll}"       count="{vehicleView>/allCount}"       showAll="true"/>
+                    <IconTabSeparator id="vehicleTabSep"/>
+                    <IconTabFilter id="vehicleTabAvailable" key="true"  text="{i18n>filterAvailable}" count="{vehicleView>/availableCount}" iconColor="Positive" icon="sap-icon://accept"/>
+                    <IconTabFilter id="vehicleTabRented" key="false" text="{i18n>filterRented}"    count="{vehicleView>/rentedCount}"    iconColor="Negative" icon="sap-icon://decline"/>
                 </items>
                 <content>
                     <Table
@@ -33,43 +33,43 @@
                         noDataText="{i18n>noVehicles}"
                         updateFinished=".onTableUpdate">
                         <headerToolbar>
-                            <OverflowToolbar>
+                            <OverflowToolbar id="vehicleTableToolbar">
                                 <SearchField id="vehicleSearch"
                                     placeholder="{i18n>searchVehicles}"
                                     liveChange=".onSearchVehicle"
                                     width="300px"/>
-                                <ToolbarSpacer/>
-                                <Button text="{i18n>addVehicle}" icon="sap-icon://add" press=".onAddVehicle" type="Emphasized"/>
-                                <Button icon="sap-icon://refresh" tooltip="{i18n>refresh}" press=".onRefresh" type="Transparent"/>
+                                <ToolbarSpacer id="vehicleToolbarSpacer"/>
+                                <Button id="vehicleAddButton" text="{i18n>addVehicle}" icon="sap-icon://add" press=".onAddVehicle" type="Emphasized"/>
+                                <Button id="vehicleRefreshButton" icon="sap-icon://refresh" tooltip="{i18n>refresh}" press=".onRefresh" type="Transparent"/>
                             </OverflowToolbar>
                         </headerToolbar>
                         <columns>
-                            <Column width="6rem"><Text text="{i18n>vehicleId}"/></Column>
-                            <Column><Text text="{i18n>vehicleInfo}"/></Column>
-                            <Column><Text text="{i18n>category}"/></Column>
-                            <Column><Text text="{i18n>specs}"/></Column>
-                            <Column hAlign="Right"><Text text="{i18n>dailyRate}"/></Column>
-                            <Column hAlign="Right"><Text text="{i18n>mileage}"/></Column>
-                            <Column hAlign="Center"><Text text="{i18n>availability}"/></Column>
-                            <Column width="12rem" hAlign="Center"><Text text="{i18n>actions}"/></Column>
+                            <Column id="vehicleColVehicleId" width="6rem"><Text id="vehicleColVehicleIdText" text="{i18n>vehicleId}"/></Column>
+                            <Column id="vehicleColVehicleInfo"><Text id="vehicleColVehicleInfoText" text="{i18n>vehicleInfo}"/></Column>
+                            <Column id="vehicleColCategory"><Text id="vehicleColCategoryText" text="{i18n>category}"/></Column>
+                            <Column id="vehicleColSpecs"><Text id="vehicleColSpecsText" text="{i18n>specs}"/></Column>
+                            <Column id="vehicleColDailyRate" hAlign="Right"><Text id="vehicleColDailyRateText" text="{i18n>dailyRate}"/></Column>
+                            <Column id="vehicleColMileage" hAlign="Right"><Text id="vehicleColMileageText" text="{i18n>mileage}"/></Column>
+                            <Column id="vehicleColAvailability" hAlign="Center"><Text id="vehicleColAvailabilityText" text="{i18n>availability}"/></Column>
+                            <Column id="vehicleColActions" width="12rem" hAlign="Center"><Text id="vehicleColActionsText" text="{i18n>actions}"/></Column>
                         </columns>
                         <items>
-                            <ColumnListItem vAlign="Middle">
+                            <ColumnListItem id="vehicleListItem" vAlign="Middle">
                                 <cells>
-                                    <ObjectIdentifier title="{VehicleId}"/>
-                                    <ObjectIdentifier title="{Brand}" text="{Model}"/>
-                                    <ObjectStatus text="{Category}" inverted="true"
+                                    <ObjectIdentifier id="vehicleCellVehicleId" title="{VehicleId}"/>
+                                    <ObjectIdentifier id="vehicleCellVehicleInfo" title="{Brand}" text="{Model}"/>
+                                    <ObjectStatus id="vehicleCellCategory" text="{Category}" inverted="true"
                                         state="{
                                             path: 'Category',
                                             formatter: '.formatter.categoryState'
                                         }"/>
-                                    <Label text="{
+                                    <Label id="vehicleCellSpecs" text="{
                                         parts: ['FuelType', 'Transmission'],
                                         formatter: '.formatter.specsText'
                                     }"/>
-                                    <ObjectNumber number="{DailyRate}" unit="{CurrencyCode}" emphasized="true"/>
-                                    <ObjectNumber number="{Mileage}" unit="km"/>
-                                    <ObjectStatus
+                                    <ObjectNumber id="vehicleCellDailyRate" number="{DailyRate}" unit="{CurrencyCode}" emphasized="true"/>
+                                    <ObjectNumber id="vehicleCellMileage" number="{Mileage}" unit="km"/>
+                                    <ObjectStatus id="vehicleCellAvailability"
                                         text="{
                                             path: 'Availability',
                                             formatter: '.formatter.availabilityText'
@@ -83,15 +83,15 @@
                                             formatter: '.formatter.availabilityIcon'
                                         }"
                                         inverted="true"/>
-                                    <HBox justifyContent="Center">
-                                        <Button
+                                    <HBox id="vehicleCellActions" justifyContent="Center">
+                                        <Button id="vehicleBookButton"
                                             text="{i18n>bookNow}"
                                             icon="sap-icon://add-document"
                                             press=".onBookVehicle"
                                             type="Emphasized"
                                             visible="{= ${Availability} === true}"/>
-                                        <Button icon="sap-icon://edit"   tooltip="{i18n>edit}"   press=".onEditVehicle"   type="Transparent"/>
-                                        <Button icon="sap-icon://delete" tooltip="{i18n>delete}" press=".onDeleteVehicle" type="Transparent"/>
+                                        <Button id="vehicleEditButton" icon="sap-icon://edit"   tooltip="{i18n>edit}"   press=".onEditVehicle"   type="Transparent"/>
+                                        <Button id="vehicleDeleteButton" icon="sap-icon://delete" tooltip="{i18n>delete}" press=".onDeleteVehicle" type="Transparent"/>
                                     </HBox>
                                 </cells>
                             </ColumnListItem>

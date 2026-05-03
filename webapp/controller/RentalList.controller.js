@@ -1,3 +1,4 @@
+/* global Promise */
 sap.ui.define([
     "./BaseController",
     "../model/formatter",

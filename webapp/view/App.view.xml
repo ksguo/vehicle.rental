@@ -3,7 +3,7 @@
     displayBlock="true"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
-    <Shell>
+    <Shell id="appShell">
         <App id="app"/>
     </Shell>
 </mvc:View>

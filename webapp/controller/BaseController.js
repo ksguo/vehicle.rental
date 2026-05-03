@@ -32,7 +32,7 @@ sap.ui.define([
             var sMsg = this.i18n(sFallbackKey);
             try {
                 sMsg = JSON.parse(oError.responseText).error.message.value || sMsg;
-            } catch (e) { /* use fallback */ }
+            } catch { /* use fallback */ }
             MessageBox.error(sMsg);
         },
 
@@ -44,7 +44,7 @@ sap.ui.define([
             if (!sDate) { return null; }
             if (sDate instanceof Date) { return sDate; }
             var a = sDate.split("-");
-            return new Date(parseInt(a[0]), parseInt(a[1]) - 1, parseInt(a[2]));
+            return new Date(parseInt(a[0], 10), parseInt(a[1], 10) - 1, parseInt(a[2], 10));
         }
     });
 });

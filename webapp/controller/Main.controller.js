@@ -1,3 +1,4 @@
+/* global Promise */
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
@@ -92,7 +93,7 @@ sap.ui.define([
                 Category: d.Category, FuelType: d.FuelType, Transmission: d.Transmission,
                 DailyRate: d.DailyRate ? d.DailyRate.toString() : "0.00",
                 CurrencyCode: d.CurrencyCode || "EUR",
-                Mileage: parseInt(d.Mileage) || 0, Availability: d.Availability
+                Mileage: parseInt(d.Mileage, 10) || 0, Availability: d.Availability
             };
 
             if (d.isNew) {
@@ -290,7 +291,7 @@ sap.ui.define([
             try {
                 var oBody = JSON.parse(oError.responseText);
                 sMsg = oBody.error.message.value || sFallback;
-            } catch (e) { /* fallback */ }
+            } catch { /* fallback */ }
             MessageBox.error(sMsg);
         },
 
