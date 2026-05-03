@@ -34,6 +34,12 @@
                     <Label id="rentalDialogLabelReturnDate" text="{i18n>returnDate}" required="true"/>
                     <DatePicker id="rentalDialogReturnDate" value="{dialog>/ReturnDate}" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" placeholder="dd.MM.yyyy"/>
 
+                    <Label id="rentalDialogLabelDuration" text="{i18n>durationDays}" visible="{= !${dialog>/isNew}}"/>
+                    <Text id="rentalDialogTextDuration" text="{dialog>/DurationDays} {i18n>days}" visible="{= !${dialog>/isNew}}"/>
+
+                    <Label id="rentalDialogLabelTotalPrice" text="{i18n>totalPrice}" visible="{= !${dialog>/isNew}}"/>
+                    <Text id="rentalDialogTextTotalPrice" text="{dialog>/TotalPrice} {dialog>/CurrencyCode}" visible="{= !${dialog>/isNew}}"/>
+
                     <Label id="rentalDialogLabelRequests" text="{i18n>specialRequests}"/>
                     <TextArea id="rentalDialogTextAreaRequests" value="{dialog>/SpecialRequests}" rows="3" maxLength="200" growing="true" placeholder="{i18n>specialRequestsPlaceholder}"/>
                 </f:content>

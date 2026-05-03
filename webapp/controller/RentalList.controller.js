@@ -118,6 +118,9 @@ sap.ui.define([
                     CustomerName: o.CustomerName,
                     PickupDate: o.PickupDate, ReturnDate: o.ReturnDate,
                     SpecialRequests: o.SpecialRequests || "",
+                    DurationDays: o.DurationDays || 0,
+                    TotalPrice: o.TotalPrice || "0.00",
+                    CurrencyCode: o.CurrencyCode || "EUR",
                     _path: oContext.getPath()
                 };
             } else {
@@ -142,6 +145,11 @@ sap.ui.define([
 
             if (!d.RentalId || !d.VehicleId || !d.CustomerName || !d.PickupDate || !d.ReturnDate) {
                 MessageBox.error(this.i18n("mandatoryFieldsError"));
+                return;
+            }
+
+            if (this.parseDate(d.ReturnDate) <= this.parseDate(d.PickupDate)) {
+                MessageBox.error(this.i18n("dateRangeError"));
                 return;
             }
 

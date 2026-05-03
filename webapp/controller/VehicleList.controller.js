@@ -121,6 +121,11 @@ sap.ui.define([
                 return;
             }
 
+            if (this.parseDate(d.ReturnDate) <= this.parseDate(d.PickupDate)) {
+                MessageBox.error(this.i18n("dateRangeError"));
+                return;
+            }
+
             oModel.create("/Rental", {
                 RentalId: d.RentalId,
                 VehicleId: d.VehicleId,
