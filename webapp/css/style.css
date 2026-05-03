@@ -21,6 +21,216 @@
     font-size: 0.875rem;
 }
 
+/* Hero banner with AI panel */
+.heroBanner {
+    position: relative;
+    overflow: hidden;
+    border-left: none;
+    background: linear-gradient(120deg, #eef4ff 0%, #f7fbff 60%, #f2f8ff 100%);
+}
+
+.heroBanner::before,
+.heroBanner::after {
+    content: "";
+    position: absolute;
+    border-radius: 999px;
+    filter: blur(0.5px);
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+.heroBanner::before {
+    width: 240px;
+    height: 240px;
+    background: #d6e6ff;
+    top: -80px;
+    right: 80px;
+}
+
+.heroBanner::after {
+    width: 180px;
+    height: 180px;
+    background: #e8f4ff;
+    bottom: -70px;
+    left: 40px;
+}
+
+.heroBanner .sapMPanelContent {
+    padding: 1.5rem;
+}
+
+.heroRow {
+    display: flex;
+    gap: 1.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+.heroTextBox {
+    max-width: 32rem;
+}
+
+.heroEyebrow {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #6c7a8c !important;
+}
+
+.heroTitle {
+    font-size: 1.6rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.01em;
+}
+
+.heroSub {
+    color: #5c6b80 !important;
+    font-size: 0.95rem;
+    margin-top: 0.35rem;
+}
+
+.heroCtaRow {
+    margin-top: 0.9rem;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.heroHint {
+    color: #6c7a8c !important;
+    font-size: 0.85rem;
+}
+
+.heroAiPanel {
+    min-width: 20rem;
+    max-width: 24rem;
+    padding: 1rem;
+    border-radius: 0.9rem;
+    background: #ffffff;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 112, 242, 0.08);
+}
+
+.heroAiDialog .sapMDialogScrollCont {
+    padding: 0.5rem;
+    background: transparent;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.heroAiDialog .sapMDialogSection {
+    height: 100%;
+}
+
+.heroAiDialog .sapMDialogScroll {
+    height: 100%;
+}
+
+.heroAiDialogPanel {
+    width: 100%;
+    min-width: auto;
+    max-width: none;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+}
+
+.heroAiHeader {
+    gap: 0.5rem;
+}
+
+.heroAiIcon {
+    color: #0070f2;
+}
+
+.heroAiTitle {
+    font-weight: 600 !important;
+}
+
+.heroAiStatus {
+    margin-left: auto;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    background: #e6f7ef;
+    color: #1c7c54 !important;
+    font-size: 0.75rem;
+}
+
+.heroAiMessages {
+    margin-top: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.heroAiBubble {
+    display: flex;
+}
+
+.heroAiText {
+    padding: 0.45rem 0.75rem;
+    border-radius: 0.8rem;
+    display: inline-block;
+    font-size: 0.85rem;
+}
+
+.heroAiBubbleUser .heroAiText {
+    background: #eef3ff;
+    color: #2b4d8b !important;
+    margin-left: auto;
+}
+
+.heroAiBubbleBot .heroAiText {
+    background: #f4f7fb;
+    color: #3a4b5f !important;
+}
+
+.heroAiInput {
+    margin-top: 0.8rem;
+    padding: 0.45rem 0.6rem;
+    border-radius: 0.75rem;
+    background: #f6f8fc;
+    border: 1px solid #e5ebf5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #6d7c90;
+    gap: 0.5rem;
+}
+
+.heroAiPlaceholder {
+    font-size: 0.8rem;
+    color: #6d7c90 !important;
+}
+
+.heroAiSend {
+    color: #0070f2;
+}
+
+.heroAiInputField {
+    flex: 1;
+}
+
+.heroAiInputField .sapMInputBaseInner {
+    border: none;
+    background: transparent;
+}
+
+.heroAiSendButton {
+    min-width: 2.5rem;
+}
+
+@media (max-width: 900px) {
+    .heroAiPanel {
+        width: 100%;
+        max-width: none;
+    }
+}
+
 /* KPI numbers */
 .kpiNumber {
     font-size: 1.5rem !important;

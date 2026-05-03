@@ -1,7 +1,9 @@
 sap.ui.define([
     "./BaseController",
-    "sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+    "sap/ui/model/json/JSONModel",
+    "sap/m/HBox",
+    "sap/m/Text"
+], function (BaseController, JSONModel, HBox, Text) {
     "use strict";
 
     return BaseController.extend("z00196ss26.vehicle.rental.controller.Dashboard", {
@@ -73,6 +75,49 @@ sap.ui.define([
 
         onNavToRentals: function () {
             this.getRouter().navTo("RentalList");
+        },
+
+        onOpenAiDialog: function () {
+            var oDialog = this.byId("dashAiDialog");
+            if (oDialog) {
+                oDialog.open();
+            }
+        },
+
+        onCloseAiDialog: function () {
+            var oDialog = this.byId("dashAiDialog");
+            if (oDialog) {
+                oDialog.close();
+            }
+        },
+
+        onAiSend: function () {
+            var oInput = this.byId("dashAiDialogInputField");
+            var oMessages = this.byId("dashAiDialogMessages");
+            if (!oInput || !oMessages) {
+                return;
+            }
+
+            var sValue = (oInput.getValue() || "").trim();
+            if (!sValue) {
+                return;
+            }
+
+            var oUserText = new Text({ text: sValue }).addStyleClass("heroAiText");
+            var oUserBubble = new HBox({ justifyContent: "End" })
+                .addStyleClass("heroAiBubble")
+                .addStyleClass("heroAiBubbleUser")
+                .addItem(oUserText);
+
+            var oBotText = new Text({ text: "Got it. AI reply is a demo here." }).addStyleClass("heroAiText");
+            var oBotBubble = new HBox()
+                .addStyleClass("heroAiBubble")
+                .addStyleClass("heroAiBubbleBot")
+                .addItem(oBotText);
+
+            oMessages.addItem(oUserBubble);
+            oMessages.addItem(oBotBubble);
+            oInput.setValue("");
         }
     });
 });

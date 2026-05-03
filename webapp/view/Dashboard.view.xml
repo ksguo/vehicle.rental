@@ -21,12 +21,16 @@
             <VBox id="dashContentBox" class="sapUiResponsiveMargin">
 
                 <!-- BANNER -->
-                <Panel id="dashBannerPanel" class="dashboardBanner sapUiSmallMarginBottom">
-                    <HBox id="dashBannerRow" alignItems="Center">
-                        <core:Icon id="dashBannerIcon" src="sap-icon://hello-world" size="1.25rem" color="#0070f2" class="sapUiSmallMarginEnd"/>
-                        <VBox id="dashBannerTextBox">
-                            <Title id="dashBannerTitle" text="{i18n>welcomeMsg}" level="H4"/>
-                            <Text id="dashBannerText" text="{i18n>heroDescription}" class="sapUiTinyMarginTop bannerDesc"/>
+                <Panel id="dashBannerPanel" class="dashboardBanner heroBanner sapUiSmallMarginBottom">
+                    <HBox id="dashBannerRow" alignItems="Center" justifyContent="SpaceBetween" class="heroRow">
+                        <VBox id="dashBannerTextBox" class="heroTextBox">
+                            <Text id="dashBannerEyebrow" text="AI Insights" class="heroEyebrow"/>
+                            <Title id="dashBannerTitle" text="Smarter Fleet Decisions" level="H3" class="heroTitle"/>
+                            <Text id="dashBannerText" text="{i18n>heroDescription}" class="heroSub"/>
+                            <HBox id="dashBannerCta" alignItems="Center" class="heroCtaRow">
+                                <Button id="dashBannerAiButton" text="Ask AI" icon="sap-icon://discussion-2" type="Emphasized" press=".onOpenAiDialog"/>
+                                <Text id="dashBannerHint" text="Try: Show available vehicles today" class="heroHint"/>
+                            </HBox>
                         </VBox>
                     </HBox>
                 </Panel>
@@ -141,5 +145,44 @@
 
             </VBox>
         </content>
+
+        <dependents>
+            <Dialog
+                id="dashAiDialog"
+                title="AI Assistant"
+                contentWidth="640px"
+                contentHeight="420px"
+                stretch="{= ${device>/system/phone} }"
+                class="heroAiDialog">
+                <content>
+                    <VBox id="dashAiDialogPanel" class="heroAiDialogPanel">
+                        <VBox id="dashAiDialogMessages" class="heroAiMessages">
+                            <HBox id="dashAiDialogBubbleUser" justifyContent="End" class="heroAiBubble heroAiBubbleUser">
+                                <Text id="dashAiDialogTextUser" text="Any vehicles available today?" class="heroAiText"/>
+                            </HBox>
+                            <HBox id="dashAiDialogBubbleBot" class="heroAiBubble heroAiBubbleBot">
+                                <Text id="dashAiDialogTextBot" text="8 vehicles are available. Want the lowest rate?" class="heroAiText"/>
+                            </HBox>
+                        </VBox>
+                        <HBox id="dashAiDialogInput" alignItems="Center" class="heroAiInput">
+                            <Input
+                                id="dashAiDialogInputField"
+                                placeholder="Ask about vehicles, rentals, revenue..."
+                                submit=".onAiSend"
+                                class="heroAiInputField"/>
+                            <Button
+                                id="dashAiDialogSendButton"
+                                icon="sap-icon://paper-plane"
+                                type="Emphasized"
+                                press=".onAiSend"
+                                class="heroAiSendButton"/>
+                        </HBox>
+                    </VBox>
+                </content>
+                <endButton>
+                    <Button id="dashAiDialogClose" text="Close" press=".onCloseAiDialog"/>
+                </endButton>
+            </Dialog>
+        </dependents>
     </Page>
 </mvc:View>
