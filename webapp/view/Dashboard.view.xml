@@ -28,13 +28,17 @@
                     </HBox>
                     <Title id="dashHeroTitle" text="{i18n>heroAiTitle}" level="H1" class="dashHeroTitle"/>
                     <Text id="dashHeroSub" text="{i18n>heroAiSub}" class="dashHeroSub"/>
-                    <HBox id="dashHeroInputRow" class="dashHeroInputRow" alignItems="Center">
+                    <HBox id="dashHeroInputRow" class="dashHeroInputRow" alignItems="Center" width="100%">
                         <Input
                             id="dashHeroInput"
                             placeholder="{i18n>heroAiHint}"
                             submit=".onHeroAiSend"
                             class="dashHeroInput"
-                            width="100%"/>
+                            width="100%">
+                            <layoutData>
+                                <FlexItemData id="dashHeroInputFlex" growFactor="1"/>
+                            </layoutData>
+                        </Input>
                         <Button
                             id="dashHeroSendBtn"
                             icon="sap-icon://paper-plane"
@@ -138,7 +142,6 @@
                             <HBox id="dashNavVehiclesIconWrap" class="navCardIconBox navCardIconBlue" alignItems="Center" justifyContent="Center">
                                 <core:Icon id="dashNavVehiclesIcon" src="sap-icon://car-rental" size="1.5rem"/>
                             </HBox>
-                            <Text id="dashNavVehiclesCount" text="{dashboard>/vehicleCount}" class="navCardBadge"/>
                         </HBox>
                         <Title id="dashNavVehiclesTitle" text="{i18n>manageVehicles}" level="H4" class="navCardTitle"/>
                         <Text id="dashNavVehiclesDesc" text="{i18n>cardVehicleFleetDesc}" class="navCardDesc"/>
@@ -153,7 +156,6 @@
                             <HBox id="dashNavRentalsIconWrap" class="navCardIconBox navCardIconGreen" alignItems="Center" justifyContent="Center">
                                 <core:Icon id="dashNavRentalsIcon" src="sap-icon://document-text" size="1.5rem"/>
                             </HBox>
-                            <Text id="dashNavRentalsCount" text="{dashboard>/totalRentals}" class="navCardBadge"/>
                         </HBox>
                         <Title id="dashNavRentalsTitle" text="{i18n>manageRentals}" level="H4" class="navCardTitle"/>
                         <Text id="dashNavRentalsDesc" text="{i18n>cardRentalBookingsDesc}" class="navCardDesc"/>
