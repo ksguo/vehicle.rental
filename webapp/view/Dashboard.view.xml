@@ -22,15 +22,32 @@
 
                 <!-- ═══ HERO: AI ASSISTANT ═══ -->
                 <VBox id="dashHeroPanel" class="dashHero sapUiSmallMarginBottom" alignItems="Center">
-                    <Text id="dashHeroEyebrow" text="Fleet AI" class="dashHeroEyebrow"/>
+                    <HBox id="dashHeroBadge" class="dashHeroBadge" alignItems="Center">
+                        <core:Icon id="dashHeroBadgeIcon" src="sap-icon://idea-wall" size="0.7rem" class="dashHeroBadgeIcon"/>
+                        <Text id="dashHeroEyebrow" text="Fleet AI" class="dashHeroEyebrow"/>
+                    </HBox>
                     <Title id="dashHeroTitle" text="{i18n>heroAiTitle}" level="H1" class="dashHeroTitle"/>
                     <Text id="dashHeroSub" text="{i18n>heroAiSub}" class="dashHeroSub"/>
-                    <SearchField
-                        id="dashHeroInput"
-                        placeholder="{i18n>heroAiHint}"
-                        search=".onHeroAiSend"
-                        showSearchButton="true"
-                        class="dashHeroSearchField"/>
+                    <HBox id="dashHeroInputRow" class="dashHeroInputRow" alignItems="Center">
+                        <Input
+                            id="dashHeroInput"
+                            placeholder="{i18n>heroAiHint}"
+                            submit=".onHeroAiSend"
+                            class="dashHeroInput"
+                            width="100%"/>
+                        <Button
+                            id="dashHeroSendBtn"
+                            icon="sap-icon://paper-plane"
+                            press=".onHeroAiSend"
+                            class="dashHeroSendBtn"
+                            type="Emphasized"/>
+                    </HBox>
+                    <HBox id="dashHeroChips" class="dashHeroChips" wrap="Wrap" justifyContent="Center">
+                        <Button id="dashHeroChip1" text="{i18n>heroChip1}" press=".onHeroChipPress" type="Transparent" class="dashHeroChip"/>
+                        <Button id="dashHeroChip2" text="{i18n>heroChip2}" press=".onHeroChipPress" type="Transparent" class="dashHeroChip"/>
+                        <Button id="dashHeroChip3" text="{i18n>heroChip3}" press=".onHeroChipPress" type="Transparent" class="dashHeroChip"/>
+                        <Button id="dashHeroChip4" text="{i18n>heroChip4}" press=".onBookingChipPress" type="Transparent" class="dashHeroChip dashHeroChipBook"/>
+                    </HBox>
                 </VBox>
 
                 <!-- ═══ KPI CARDS ═══ -->
@@ -163,18 +180,6 @@
                         id="dashAiChatList"
                         showSeparators="None"
                         class="aiChatList">
-                        <FeedListItem
-                            id="dashAiInitMsgUser"
-                            sender="You"
-                            text="Any vehicles available today?"
-                            showIcon="false"
-                            senderActive="false"/>
-                        <FeedListItem
-                            id="dashAiInitMsgBot"
-                            sender="Fleet AI"
-                            icon="sap-icon://discussion-2"
-                            text="8 vehicles are available. Want the lowest rate?"
-                            senderActive="false"/>
                     </List>
                     <FeedInput
                         id="dashAiFeedInput"

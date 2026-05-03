@@ -16,112 +16,178 @@
 
 
 /* ═══════════════════════════════════════════════
-   HERO: AI ASSISTANT BANNER
-   VBox (not Panel) — gradient applies directly
+   HERO: AI ASSISTANT BANNER (light theme)
 ═══════════════════════════════════════════════ */
 .dashHero {
-    background: linear-gradient(135deg, #0a1628 0%, #0c2348 40%, #0a4080 75%, #0070f2 100%) !important;
-    border-radius: 1rem;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 8px 32px rgba(0, 112, 242, 0.3);
-    padding: 3rem 2rem 2.5rem;
+    background:
+        radial-gradient(ellipse 800px 300px at 50% 0%, rgba(0, 112, 242, 0.06) 0%, transparent 65%),
+        #ffffff !important;
+    border: 1px solid #e6eaf0;
+    border-radius: 0.875rem;
+    padding: 2.25rem 2rem 1.75rem;
     text-align: center;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
 }
 
-.dashHero::before {
-    content: "";
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 50%;
-    top: -200px;
-    right: -80px;
-    pointer-events: none;
+.dashHeroBadge {
+    display: inline-flex;
+    background: #eef4ff;
+    border: 1px solid #d6e6ff;
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    gap: 0.35rem;
+    margin-bottom: 0.875rem;
+    width: auto;
+    flex: none;
 }
 
-.dashHero::after {
-    content: "";
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 50%;
-    bottom: -120px;
-    left: -60px;
-    pointer-events: none;
+.dashHeroBadgeIcon {
+    color: #0058c5 !important;
 }
 
 .dashHeroEyebrow.sapMText {
     font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: rgba(255, 255, 255, 0.5) !important;
-    margin-bottom: 0.5rem;
-    position: relative;
-    z-index: 1;
+    font-weight: 600;
+    color: #0058c5 !important;
+    letter-spacing: 0.04em;
 }
 
 .dashHeroTitle.sapMTitle,
 .dashHeroTitle .sapMTitleEllipsis {
-    font-size: 2.4rem !important;
-    font-weight: 700 !important;
-    color: #ffffff !important;
-    line-height: 1.15;
-    position: relative;
-    z-index: 1;
+    font-size: 1.875rem !important;
+    font-weight: 600 !important;
+    color: #0a1628 !important;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
 }
 
 .dashHeroSub.sapMText {
-    color: rgba(255, 255, 255, 0.62) !important;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-top: 0.6rem;
-    max-width: 34rem;
-    position: relative;
-    z-index: 1;
+    color: #64748b !important;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin-top: 0.4rem;
+    max-width: 32rem;
 }
 
-/* SearchField pill — native SAP control, no double-border hack needed */
-.dashHeroSearchField.sapMSF {
-    margin-top: 1.75rem;
-    max-width: 36rem;
+/* Hero input row — HBox acts as the unified visual container */
+.dashHeroInputRow.sapMHBox {
+    margin-top: 1.25rem;
+    max-width: 32rem;
     width: 100%;
-    position: relative;
-    z-index: 1;
-    border-radius: 0.75rem;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.22);
-    background: rgba(255, 255, 255, 0.12) !important;
-    border: 1px solid rgba(255, 255, 255, 0.24) !important;
+    border: 1px solid #d6deea;
+    border-radius: 0.625rem;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    overflow: hidden;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.dashHeroSearchField .sapMSFI {
-    background: transparent !important;
+.dashHeroInputRow.sapMHBox:hover {
+    border-color: #b8c5d6;
 }
 
-.dashHeroSearchField .sapMSFF {
-    background: transparent !important;
+.dashHeroInputRow.sapMHBox:focus-within {
+    border-color: #0070f2;
+    box-shadow: 0 0 0 3px rgba(0, 112, 242, 0.12);
+}
+
+/* Strip all SAPUI5 chrome from the inner Input */
+.dashHeroInputRow .dashHeroInput.sapMInput,
+.dashHeroInputRow .dashHeroInput.sapMInput.sapMFocus,
+.dashHeroInputRow .dashHeroInput.sapMInput.sapMInputFocused {
     border: none !important;
-    border-radius: 0.75rem;
-    color: #ffffff !important;
-    font-size: 0.95rem;
-    padding: 0 0.5rem;
-    height: 3rem;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
 }
 
-.dashHeroSearchField .sapMSFF::placeholder {
-    color: rgba(255, 255, 255, 0.45) !important;
+.dashHeroInputRow .dashHeroInput.sapMInput.sapMFocus::before,
+.dashHeroInputRow .dashHeroInput.sapMInput.sapMFocus::after,
+.dashHeroInputRow .dashHeroInput.sapMInput.sapMInputFocused::before,
+.dashHeroInputRow .dashHeroInput.sapMInput.sapMInputFocused::after {
+    display: none !important;
 }
 
-.dashHeroSearchField .sapMSFB {
+.dashHeroInputRow .dashHeroInput .sapMInputBaseInner {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    font-size: 0.9rem;
+    color: #0f172a !important;
+    padding: 0 0.875rem !important;
+    height: 2.75rem;
+    line-height: 2.75rem;
+}
+
+.dashHeroInputRow .dashHeroInput .sapMInputBaseInner::placeholder,
+.dashHeroInputRow .dashHeroInput .sapMInputBaseInner::-webkit-input-placeholder {
+    color: #94a3b8 !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    opacity: 1 !important;
+}
+
+/* Send button */
+.dashHeroInputRow .dashHeroSendBtn.sapMBtn .sapMBtnInner {
     background: #0070f2 !important;
-    border-radius: 0.5rem !important;
-    margin: 0.25rem;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    height: 2.75rem !important;
+    min-width: 2.75rem !important;
+    padding: 0 0.875rem !important;
 }
 
-.dashHeroSearchField .sapUiSearchFieldIco {
-    color: rgba(255, 255, 255, 0.5) !important;
+.dashHeroInputRow .dashHeroSendBtn.sapMBtn:hover .sapMBtnInner {
+    background: #0058c5 !important;
+}
+
+.dashHeroInputRow .dashHeroSendBtn .sapUiIcon {
+    color: #ffffff !important;
+}
+
+.dashHeroChips {
+    margin-top: 1rem;
+    gap: 0.4rem;
+    max-width: 36rem;
+}
+
+.dashHeroChip.sapMBtn .sapMBtnInner {
+    background: #f1f5f9 !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 999px !important;
+    padding: 0.3rem 0.85rem !important;
+    height: auto !important;
+    min-height: unset !important;
+    box-shadow: none !important;
+}
+
+.dashHeroChip.sapMBtn .sapMBtnInner .sapMBtnContent,
+.dashHeroChip.sapMBtn .sapMBtnInner .sapMBtnText {
+    color: #475569 !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+}
+
+.dashHeroChip.sapMBtn:hover .sapMBtnInner {
+    background: #e2e8f0 !important;
+    border-color: #cbd5e1 !important;
+}
+
+.dashHeroChipBook.sapMBtn .sapMBtnInner {
+    background: #eff6ff !important;
+    border-color: #bfdbfe !important;
+}
+
+.dashHeroChipBook.sapMBtn .sapMBtnInner .sapMBtnContent,
+.dashHeroChipBook.sapMBtn .sapMBtnInner .sapMBtnText {
+    color: #1d4ed8 !important;
+}
+
+.dashHeroChipBook.sapMBtn:hover .sapMBtnInner {
+    background: #dbeafe !important;
+    border-color: #93c5fd !important;
 }
 
 
@@ -397,4 +463,20 @@
 
 .aiChatFeedInput {
     border-top: 1px solid #e8e8e8;
+}
+
+.aiThinking .sapMFeedListItemText {
+    color: #94a3b8 !important;
+    font-style: italic;
+}
+
+.aiThinking .sapMFeedListItemText::after {
+    content: " •••";
+    margin-left: 0.15rem;
+    animation: aiThinkingPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes aiThinkingPulse {
+    0%, 100% { opacity: 0.3; }
+    50%      { opacity: 1; }
 }
