@@ -56,7 +56,7 @@ sap.ui.define([
                     oDash.setProperty("/activeCount", iActive);
                     oDash.setProperty("/openCount", iOpen);
                     oDash.setProperty("/closedCount", iClosed);
-                    oDash.setProperty("/totalRevenue", fRev.toFixed(2));
+                    oDash.setProperty("/totalRevenue", fRev.toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                     oDash.setProperty("/totalRentals", a.length);
                 }
             });

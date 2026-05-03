@@ -1,22 +1,91 @@
+/* Header */
 .dashboardHeader {
     background-color: #ffffff;
     border-bottom: 2px solid #0070f2;
 }
 
+/* Banner */
+.dashboardBanner {
+    background-color: #edf4ff;
+    border-left: 4px solid #0070f2;
+    border-radius: 0.5rem;
+}
+
+.dashboardBanner .sapMPanelContent {
+    padding: 0.875rem 1rem;
+    box-sizing: border-box;
+}
+
+.bannerDesc {
+    color: #6a6d70 !important;
+    font-size: 0.875rem;
+}
+
+/* KPI numbers */
 .kpiNumber {
     font-size: 1.5rem !important;
     min-width: 3rem;
     text-align: center;
 }
 
+
+/* Page background */
 .sapMPage > section {
     background-color: #f5f6f7;
 }
 
+/* Card hover */
 .sapFCard {
     transition: box-shadow 0.2s ease;
 }
 
 .sapFCard:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Action Cards */
+.actionCard {
+    background: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+    height: 100%;
+}
+
+.actionCard:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.actionCardHeader {
+    background: linear-gradient(135deg, #0070f2, #0054b6);
+    padding: 0.875rem 1rem;
+    color: #ffffff;
+}
+
+.actionCardHeader .sapMTitle {
+    color: #ffffff !important;
+}
+
+.actionCardHeader .sapUiIcon {
+    color: #ffffff !important;
+}
+
+.actionCardBody {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.actionCardDesc {
+    color: #6a6d70 !important;
+    font-size: 0.875rem;
+    line-height: 1.4;
+}
+
+.actionCardFooter {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #e8e8e8;
 }

@@ -10,17 +10,26 @@
     <Page id="dashboardPage" showHeader="false">
         <content>
             <Panel class="sapUiNoContentPadding">
-                <Toolbar class="sapUiMediumMarginBottom dashboardHeader" height="4rem">
+                <Toolbar class="dashboardHeader" height="4rem">
                     <core:Icon src="sap-icon://car-rental" size="1.75rem" class="sapUiSmallMarginBegin sapUiSmallMarginEnd" color="#0070f2"/>
                     <Title text="{i18n>appTitle}" level="H2"/>
-                    <ToolbarSpacer/>
-                    <Label text="{i18n>welcomeMsg}" design="Bold"/>
                     <ToolbarSpacer/>
                     <Button icon="sap-icon://refresh" tooltip="{i18n>refresh}" press=".onRefreshDashboard" type="Transparent"/>
                 </Toolbar>
             </Panel>
 
             <VBox class="sapUiResponsiveMargin">
+
+                <!-- BANNER -->
+                <Panel class="dashboardBanner sapUiSmallMarginBottom">
+                    <HBox alignItems="Center">
+                        <core:Icon src="sap-icon://hello-world" size="1.25rem" color="#0070f2" class="sapUiSmallMarginEnd"/>
+                        <VBox>
+                            <Title text="{i18n>welcomeMsg}" level="H4"/>
+                            <Text text="{i18n>heroDescription}" class="sapUiTinyMarginTop bannerDesc"/>
+                        </VBox>
+                    </HBox>
+                </Panel>
 
                 <!-- KPI ROW -->
                 <layout:Grid defaultSpan="XL4 L4 M6 S12" class="sapUiSmallMarginBottom">
@@ -99,90 +108,34 @@
 
                 </layout:Grid>
 
-                <!-- VEHICLE ALLOCATION OVERVIEW -->
-                <Panel class="sapUiSmallMarginBottom">
-                    <headerToolbar>
-                        <Toolbar>
-                            <core:Icon src="sap-icon://overview-chart" class="sapUiSmallMarginEnd" color="#0070f2"/>
-                            <Title text="{i18n>allocationOverview}" level="H4"/>
-                        </Toolbar>
-                    </headerToolbar>
-                    <content>
-                        <VBox class="sapUiSmallMargin">
-                            <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginBottom">
-                                <Label text="{i18n>vehicleAllocation}" design="Bold"/>
-                                <Text text="{dashboard>/availableCount} / {dashboard>/vehicleCount} {i18n>available}"/>
-                            </HBox>
-                            <ProgressIndicator
-                                displayValue="{dashboard>/availableCount} {i18n>filterAvailable}  |  {dashboard>/rentedCount} {i18n>filterRented}"
-                                percentValue="{dashboard>/availablePercent}"
-                                state="Success"
-                                showValue="true"
-                                class="sapUiSmallMarginBottom"/>
+                <!-- ACTION CARDS -->
+                <layout:Grid defaultSpan="XL6 L6 M6 S12">
+
+                    <VBox class="actionCard">
+                        <HBox class="actionCardHeader" alignItems="Center">
+                            <core:Icon src="sap-icon://car-rental" size="1.25rem" class="sapUiSmallMarginEnd"/>
+                            <Title text="{i18n>manageVehicles}" level="H5"/>
+                        </HBox>
+                        <VBox class="actionCardBody">
+                            <Text text="{i18n>cardVehicleFleetDesc}" class="actionCardDesc"/>
+                            <VBox class="actionCardFooter">
+                                <Link text="{i18n>viewAllVehicles}" press=".onNavToVehicles"/>
+                            </VBox>
                         </VBox>
-                    </content>
-                </Panel>
+                    </VBox>
 
-                <!-- NAVIGATION CARDS ROW -->
-                <layout:Grid defaultSpan="XL6 L6 M12 S12">
-
-                    <f:Card width="100%">
-                        <f:header>
-                            <fCards:Header
-                                title="{i18n>manageVehicles}"
-                                subtitle="{i18n>manageVehiclesDesc}"
-                                iconSrc="sap-icon://car-rental"
-                                press=".onNavToVehicles"/>
-                        </f:header>
-                        <f:content>
-                            <List id="recentVehiclesList"
-                                  items="{ path: '/Vehicle', length: 5 }"
-                                  noDataText="{i18n>noVehicles}"
-                                  showSeparators="Inner">
-                                <StandardListItem
-                                    title="{Brand} {Model}"
-                                    description="{Category} | {FuelType} | {Transmission}"
-                                    info="{= ${Availability} ? 'Available' : 'Rented'}"
-                                    infoState="{= ${Availability} ? 'Success' : 'Error'}"
-                                    icon="sap-icon://car-rental"
-                                    type="Active"
-                                    press=".onNavToVehicles"/>
-                            </List>
-                            <Toolbar>
-                                <ToolbarSpacer/>
-                                <Button text="{i18n>viewAll}" type="Transparent" icon="sap-icon://arrow-right" iconFirst="false" press=".onNavToVehicles"/>
-                            </Toolbar>
-                        </f:content>
-                    </f:Card>
-
-                    <f:Card width="100%">
-                        <f:header>
-                            <fCards:Header
-                                title="{i18n>manageRentals}"
-                                subtitle="{i18n>manageRentalsDesc}"
-                                iconSrc="sap-icon://document-text"
-                                press=".onNavToRentals"/>
-                        </f:header>
-                        <f:content>
-                            <List id="recentRentalsList"
-                                  items="{ path: '/Rental', length: 5 }"
-                                  noDataText="{i18n>noRentals}"
-                                  showSeparators="Inner">
-                                <StandardListItem
-                                    title="{CustomerName}"
-                                    description="{i18n>vehicleLabel} {VehicleId} | {PickupDate} - {ReturnDate}"
-                                    info="{Status}"
-                                    infoState="{= ${Status} === 'ACTIVE' ? 'Success' : (${Status} === 'CLOSED' ? 'None' : 'Warning')}"
-                                    icon="sap-icon://document"
-                                    type="Active"
-                                    press=".onNavToRentals"/>
-                            </List>
-                            <Toolbar>
-                                <ToolbarSpacer/>
-                                <Button text="{i18n>viewAll}" type="Transparent" icon="sap-icon://arrow-right" iconFirst="false" press=".onNavToRentals"/>
-                            </Toolbar>
-                        </f:content>
-                    </f:Card>
+                    <VBox class="actionCard">
+                        <HBox class="actionCardHeader" alignItems="Center">
+                            <core:Icon src="sap-icon://document-text" size="1.25rem" class="sapUiSmallMarginEnd"/>
+                            <Title text="{i18n>manageRentals}" level="H5"/>
+                        </HBox>
+                        <VBox class="actionCardBody">
+                            <Text text="{i18n>cardRentalBookingsDesc}" class="actionCardDesc"/>
+                            <VBox class="actionCardFooter">
+                                <Link text="{i18n>viewAllRentals}" press=".onNavToRentals"/>
+                            </VBox>
+                        </VBox>
+                    </VBox>
 
                 </layout:Grid>
 
