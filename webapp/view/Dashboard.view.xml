@@ -45,14 +45,14 @@
                                 state="Good"/>
                         </f:header>
                         <f:content>
-                            <HBox id="dashKpiVehiclesRow" justifyContent="SpaceAround" class="sapUiSmallMargin">
-                                <VBox id="dashKpiAvailableBox" alignItems="Center">
-                                    <ObjectStatus id="dashKpiAvailableValue" text="{dashboard>/availableCount}" state="Success" inverted="true" class="kpiNumber"/>
-                                    <Label id="dashKpiAvailableLabel" text="{i18n>filterAvailable}" class="sapUiTinyMarginTop"/>
+                            <HBox id="dashKpiVehiclesRow" justifyContent="SpaceAround" class="sapUiSmallMargin kpiFooterRow">
+                                <VBox id="dashKpiAvailableBox" alignItems="Center" class="kpiFooterItem">
+                                    <ObjectStatus id="dashKpiAvailableValue" text="{dashboard>/availableCount}" state="Success" inverted="true" class="kpiNumber kpiBadge"/>
+                                    <Label id="dashKpiAvailableLabel" text="{i18n>filterAvailable}" class="kpiFooterLabel"/>
                                 </VBox>
-                                <VBox id="dashKpiRentedBox" alignItems="Center">
-                                    <ObjectStatus id="dashKpiRentedValue" text="{dashboard>/rentedCount}" state="Error" inverted="true" class="kpiNumber"/>
-                                    <Label id="dashKpiRentedLabel" text="{i18n>filterRented}" class="sapUiTinyMarginTop"/>
+                                <VBox id="dashKpiRentedBox" alignItems="Center" class="kpiFooterItem">
+                                    <ObjectStatus id="dashKpiRentedValue" text="{dashboard>/rentedCount}" state="Error" inverted="true" class="kpiNumber kpiBadge"/>
+                                    <Label id="dashKpiRentedLabel" text="{i18n>filterRented}" class="kpiFooterLabel"/>
                                 </VBox>
                             </HBox>
                         </f:content>
@@ -69,14 +69,14 @@
                                 state="Good"/>
                         </f:header>
                         <f:content>
-                            <HBox id="dashKpiRentalsRow" justifyContent="SpaceAround" class="sapUiSmallMargin">
-                                <VBox id="dashKpiOpenBox" alignItems="Center">
-                                    <ObjectStatus id="dashKpiOpenValue" text="{dashboard>/openCount}" state="Warning" inverted="true" class="kpiNumber"/>
-                                    <Label id="dashKpiOpenLabel" text="{i18n>statusOpen}" class="sapUiTinyMarginTop"/>
+                            <HBox id="dashKpiRentalsRow" justifyContent="SpaceAround" class="sapUiSmallMargin kpiFooterRow">
+                                <VBox id="dashKpiOpenBox" alignItems="Center" class="kpiFooterItem">
+                                    <ObjectStatus id="dashKpiOpenValue" text="{dashboard>/openCount}" state="Warning" inverted="true" class="kpiNumber kpiBadge"/>
+                                    <Label id="dashKpiOpenLabel" text="{i18n>statusOpen}" class="kpiFooterLabel"/>
                                 </VBox>
-                                <VBox id="dashKpiClosedBox" alignItems="Center">
-                                    <ObjectStatus id="dashKpiClosedValue" text="{dashboard>/closedCount}" state="None" inverted="true" class="kpiNumber"/>
-                                    <Label id="dashKpiClosedLabel" text="{i18n>statusClosed}" class="sapUiTinyMarginTop"/>
+                                <VBox id="dashKpiClosedBox" alignItems="Center" class="kpiFooterItem">
+                                    <ObjectStatus id="dashKpiClosedValue" text="{dashboard>/closedCount}" state="None" inverted="true" class="kpiNumber kpiBadge"/>
+                                    <Label id="dashKpiClosedLabel" text="{i18n>statusClosed}" class="kpiFooterLabel"/>
                                 </VBox>
                             </HBox>
                         </f:content>
@@ -93,14 +93,14 @@
                                 state="Good"/>
                         </f:header>
                         <f:content>
-                            <HBox id="dashKpiRevenueRow" justifyContent="SpaceAround" class="sapUiSmallMargin">
-                                <VBox id="dashKpiTotalBookingsBox" alignItems="Center">
-                                    <ObjectStatus id="dashKpiTotalBookingsValue" text="{dashboard>/totalRentals}" state="Information" inverted="true" class="kpiNumber"/>
-                                    <Label id="dashKpiTotalBookingsLabel" text="{i18n>totalBookings}" class="sapUiTinyMarginTop"/>
+                            <HBox id="dashKpiRevenueRow" justifyContent="SpaceAround" class="sapUiSmallMargin kpiFooterRow">
+                                <VBox id="dashKpiTotalBookingsBox" alignItems="Center" class="kpiFooterItem">
+                                    <ObjectStatus id="dashKpiTotalBookingsValue" text="{dashboard>/totalRentals}" state="Information" inverted="true" class="kpiNumber kpiBadge"/>
+                                    <Label id="dashKpiTotalBookingsLabel" text="{i18n>totalBookings}" class="kpiFooterLabel"/>
                                 </VBox>
-                                <VBox id="dashKpiAvgRateBox" alignItems="Center">
-                                    <ObjectStatus id="dashKpiAvgRateValue" text="{dashboard>/avgRate}" state="Information" inverted="true" class="kpiNumber"/>
-                                    <Label id="dashKpiAvgRateLabel" text="{i18n>avgDailyRate}" class="sapUiTinyMarginTop"/>
+                                <VBox id="dashKpiAvgRateBox" alignItems="Center" class="kpiFooterItem">
+                                    <ObjectStatus id="dashKpiAvgRateValue" text="{dashboard>/avgRate}" state="Information" inverted="true" class="kpiNumber kpiBadge"/>
+                                    <Label id="dashKpiAvgRateLabel" text="{i18n>avgDailyRate}" class="kpiFooterLabel"/>
                                 </VBox>
                             </HBox>
                         </f:content>
