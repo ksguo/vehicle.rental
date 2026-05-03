@@ -14,7 +14,7 @@ sap.ui.define([
     var FN_CONFIRM  = "/confirmRental";
     var FN_CLOSE    = "/closeRental";
 
-    return Controller.extend("z00196ss26.vehicle.rental.controller.Main", {
+    return Controller.extend("z00196ss26.vehicle.rental2.controller.Main", {
 
         onInit: function () {
             this.getView().setModel(new JSONModel({}), "dialog");
@@ -268,7 +268,7 @@ sap.ui.define([
         },
 
         _getDialog: function (sType) {
-            var sName = "z00196ss26.vehicle.rental.view.fragment." +
+            var sName = "z00196ss26.vehicle.rental2.view.fragment." +
                 (sType === "vehicle" ? "VehicleDialog" : "RentalDialog");
             var sKey = "_o" + sType + "Dlg";
             if (!this[sKey]) {

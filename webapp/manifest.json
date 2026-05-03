@@ -1,7 +1,7 @@
 {
   "_version": "1.84.0",
   "sap.app": {
-    "id": "z00196ss26.vehicle.rental",
+    "id": "z00196ss26.vehicle.rental2",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -57,7 +57,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "z00196ss26.vehicle.rental.i18n.i18n"
+          "bundleName": "z00196ss26.vehicle.rental2.i18n.i18n"
         }
       },
       "": {
@@ -84,9 +84,9 @@
         "transition": "slide",
         "type": "View",
         "viewType": "XML",
-        "path": "z00196ss26.vehicle.rental.view",
+        "path": "z00196ss26.vehicle.rental2.view",
         "async": true,
-        "viewPath": "z00196ss26.vehicle.rental.view"
+        "viewPath": "z00196ss26.vehicle.rental2.view"
       },
       "routes": [
         {
@@ -121,7 +121,7 @@
       }
     },
     "rootView": {
-      "viewName": "z00196ss26.vehicle.rental.view.App",
+      "viewName": "z00196ss26.vehicle.rental2.view.App",
       "type": "XML",
       "id": "App",
       "async": true

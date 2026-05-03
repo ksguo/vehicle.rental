@@ -3,7 +3,7 @@ sap.ui.define([
 ], (BaseController) => {
   "use strict";
 
-  return BaseController.extend("z00196ss26.vehicle.rental.controller.App", {
+  return BaseController.extend("z00196ss26.vehicle.rental2.controller.App", {
       onInit() {
       }
   });

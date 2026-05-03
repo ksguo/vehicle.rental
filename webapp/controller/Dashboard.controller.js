@@ -5,7 +5,7 @@ sap.ui.define([
 ], function (BaseController, JSONModel, FeedListItem) {
     "use strict";
 
-    return BaseController.extend("z00196ss26.vehicle.rental.controller.Dashboard", {
+    return BaseController.extend("z00196ss26.vehicle.rental2.controller.Dashboard", {
 
         onInit: function () {
             this.setModel(new JSONModel({
@@ -93,17 +93,18 @@ sap.ui.define([
         onHeroAiSend: function (oEvent) {
             var oInput = this.byId("dashHeroInput");
             var sValue = (oEvent.getParameter("value") || (oInput ? oInput.getValue() : "") || "").trim();
-            if (sValue) {
-                this._addChatMessage(sValue, true);
-                this._callAi(sValue);
-                if (oInput) { oInput.setValue(""); }
-            }
+            if (!sValue) { return; }
+            if (oInput) { oInput.setValue(""); }
+            if (this._tryHandleIntent(sValue)) { return; }
+            this._addChatMessage(sValue, true);
+            this._callAi(sValue);
             var oDialog = this.byId("dashAiDialog");
             if (oDialog) { oDialog.open(); }
         },
 
         onHeroChipPress: function (oEvent) {
             var sQuery = oEvent.getSource().getText();
+            if (this._tryHandleIntent(sQuery)) { return; }
             this._addChatMessage(sQuery, true);
             this._callAi(sQuery);
             var oDialog = this.byId("dashAiDialog");
@@ -113,8 +114,58 @@ sap.ui.define([
         onAiPost: function (oEvent) {
             var sValue = (oEvent.getParameter("value") || "").trim();
             if (!sValue) { return; }
+            if (this._tryHandleIntent(sValue)) {
+                var oDialog = this.byId("dashAiDialog");
+                if (oDialog && oDialog.isOpen()) { oDialog.close(); }
+                return;
+            }
             this._addChatMessage(sValue, true);
             this._callAi(sValue);
+        },
+
+        // ════════════════════════════════════════════════════
+        // INTENT DETECTION — direct navigation + filter
+        // ════════════════════════════════════════════════════
+
+        _tryHandleIntent: function (sQuery) {
+            var oIntent = this._parseIntent(sQuery);
+            if (!oIntent) { return false; }
+            sessionStorage.setItem("aiFilterIntent", JSON.stringify(oIntent));
+            var oDialog = this.byId("dashAiDialog");
+            if (oDialog && oDialog.isOpen()) { oDialog.close(); }
+            this.getRouter().navTo(oIntent.route);
+            return true;
+        },
+
+        _parseIntent: function (sQuery) {
+            var q = (sQuery || "").toLowerCase();
+
+            // Vehicle filters
+            if (/(available\s+(vehicle|car|fleet)|how\s+many.*available|vehicle.*available|car.*available|filter.*available)/.test(q)) {
+                return { route: "VehicleList", filter: "true" };
+            }
+            if (/(rented\s+(vehicle|car)|vehicle.*rented|car.*rented|filter.*rented|in\s+use)/.test(q)) {
+                return { route: "VehicleList", filter: "false" };
+            }
+            if (/(all\s+(vehicle|car)|show\s+(vehicle|car|fleet)|vehicle\s+list|view\s+fleet|manage\s+vehicle|browse\s+vehicle|extract.*vehicle|extract.*fleet)/.test(q)) {
+                return { route: "VehicleList", filter: "ALL" };
+            }
+
+            // Rental filters
+            if (/active\s+(rental|booking)/.test(q)) {
+                return { route: "RentalList", filter: "ACTIVE" };
+            }
+            if (/(open|pending)\s+(rental|booking)/.test(q)) {
+                return { route: "RentalList", filter: "OPEN" };
+            }
+            if (/(closed|completed|finished)\s+(rental|booking)/.test(q)) {
+                return { route: "RentalList", filter: "CLOSED" };
+            }
+            if (/(all\s+(rental|booking)|show\s+(rental|booking)|rental\s+list|booking\s+list|manage\s+rental|extract.*rental|extract.*booking)/.test(q)) {
+                return { route: "RentalList", filter: "ALL" };
+            }
+
+            return null;
         },
 
         onBookingChipPress: function () {

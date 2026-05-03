@@ -9,7 +9,7 @@ sap.ui.define([
 ], function (BaseController, formatter, JSONModel, Filter, FilterOperator, MessageBox) {
     "use strict";
 
-    return BaseController.extend("z00196ss26.vehicle.rental.controller.VehicleList", {
+    return BaseController.extend("z00196ss26.vehicle.rental2.controller.VehicleList", {
 
         formatter: formatter,
 
@@ -29,6 +29,21 @@ sap.ui.define([
 
         _onRouteMatched: function () {
             this._updateCounts();
+            this._applyAiIntent();
+        },
+
+        _applyAiIntent: function () {
+            var sIntent = sessionStorage.getItem("aiFilterIntent");
+            if (!sIntent) { return; }
+            try {
+                var o = JSON.parse(sIntent);
+                if (o.route !== "VehicleList") { return; }
+                sessionStorage.removeItem("aiFilterIntent");
+                this._sFilterKey = o.filter;
+                var oTabBar = this.byId("vehicleIconTabBar");
+                if (oTabBar) { oTabBar.setSelectedKey(o.filter); }
+                this._applyFilters();
+            } catch (e) { /* ignore */ }
         },
 
         // ================================================================
@@ -255,7 +270,7 @@ sap.ui.define([
         _getVehicleDialog: function () {
             if (!this._oVehicleDialog) {
                 return this.loadFragment({
-                    name: "z00196ss26.vehicle.rental.view.fragment.VehicleDialog"
+                    name: "z00196ss26.vehicle.rental2.view.fragment.VehicleDialog"
                 }).then(function (oDialog) {
                     this._oVehicleDialog = oDialog;
                     this.getView().addDependent(oDialog);
@@ -269,7 +284,7 @@ sap.ui.define([
             if (!this._oRentalDialog) {
                 return this.loadFragment({
                     id: "bookingDialog",
-                    name: "z00196ss26.vehicle.rental.view.fragment.RentalDialog"
+                    name: "z00196ss26.vehicle.rental2.view.fragment.RentalDialog"
                 }).then(function (oDialog) {
                     this._oRentalDialog = oDialog;
                     this.getView().addDependent(oDialog);

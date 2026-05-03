@@ -1,10 +1,10 @@
 sap.ui.define([
     "sap/ui/core/UIComponent",
-    "z00196ss26/vehicle/rental/model/models"
+    "z00196ss26/vehicle/rental2/model/models"
 ], (UIComponent, models) => {
     "use strict";
 
-    return UIComponent.extend("z00196ss26.vehicle.rental.Component", {
+    return UIComponent.extend("z00196ss26.vehicle.rental2.Component", {
         metadata: {
             manifest: "json",
             interfaces: [

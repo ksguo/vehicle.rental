@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="z00196ss26.vehicle.rental.controller.VehicleList"
+    controllerName="z00196ss26.vehicle.rental2.controller.VehicleList"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:core="sap.ui.core">

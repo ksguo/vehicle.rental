@@ -9,7 +9,7 @@ sap.ui.define([
 ], function (BaseController, formatter, JSONModel, Filter, FilterOperator, MessageBox) {
     "use strict";
 
-    return BaseController.extend("z00196ss26.vehicle.rental.controller.RentalList", {
+    return BaseController.extend("z00196ss26.vehicle.rental2.controller.RentalList", {
 
         formatter: formatter,
 
@@ -30,6 +30,21 @@ sap.ui.define([
 
         _onRouteMatched: function () {
             this._updateCounts();
+            this._applyAiIntent();
+        },
+
+        _applyAiIntent: function () {
+            var sIntent = sessionStorage.getItem("aiFilterIntent");
+            if (!sIntent) { return; }
+            try {
+                var o = JSON.parse(sIntent);
+                if (o.route !== "RentalList") { return; }
+                sessionStorage.removeItem("aiFilterIntent");
+                this._sFilterKey = o.filter;
+                var oTabBar = this.byId("rentalIconTabBar");
+                if (oTabBar) { oTabBar.setSelectedKey(o.filter); }
+                this._applyFilters();
+            } catch (e) { /* ignore */ }
         },
 
         // ================================================================
@@ -242,7 +257,7 @@ sap.ui.define([
         _getFragmentDialog: function () {
             if (!this._oDialog) {
                 return this.loadFragment({
-                    name: "z00196ss26.vehicle.rental.view.fragment.RentalDialog"
+                    name: "z00196ss26.vehicle.rental2.view.fragment.RentalDialog"
                 }).then(function (oDialog) {
                     this._oDialog = oDialog;
                     this.getView().addDependent(oDialog);

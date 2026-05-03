@@ -5,7 +5,7 @@ sap.ui.define([
 ], function (Controller, MessageBox, MessageToast) {
     "use strict";
 
-    return Controller.extend("z00196ss26.vehicle.rental.controller.BaseController", {
+    return Controller.extend("z00196ss26.vehicle.rental2.controller.BaseController", {
 
         getRouter: function () {
             return this.getOwnerComponent().getRouter();
